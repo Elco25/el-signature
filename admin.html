@@ -64,6 +64,14 @@ td select{width:auto;padding:6px 8px}
 .th .cv{position:absolute;bottom:0;left:0;right:0;background:rgba(168,143,111,.9);color:#fff;font-size:11px;text-align:center}
 #toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;z-index:30;font-size:14px}
 </style>
+<link rel="manifest" href="/admin.webmanifest">
+<meta name="theme-color" content="#282B2B">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EL Admin">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 <body>
 
@@ -79,7 +87,7 @@ td select{width:auto;padding:6px 8px}
 </div>
 
 <div id="app" hidden>
-<div class="top"><span class="brand">EL SIGNATURE</span><div class="tabs" id="tabs"></div><button class="btn ghost" id="out">Déconnexion</button></div>
+<div class="top"><span class="brand">EL SIGNATURE</span><div class="tabs" id="tabs"></div><button class="btn ghost" id="inst" hidden>Installer l'app</button><button class="btn ghost" id="out">Déconnexion</button></div>
 <main id="main"></main>
 </div>
 <div id="toast" hidden></div>
@@ -280,6 +288,12 @@ async function edit(k,row){
   var md=$('modal');md.textContent='';md.className='modal';md.hidden=false;md.append(form);
 }
 function close(){var md=$('modal');md.hidden=true;md.textContent=''}
+
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});
+var dp=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;document.getElementById('inst').hidden=false});
+document.getElementById('inst').addEventListener('click',function(e){e.preventDefault();if(dp){dp.prompt();dp=null;this.hidden=true}});
+var isIos=/iphone|ipad|ipod/i.test(navigator.userAgent),isStand=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
 </script>
 </body>
 </html>

@@ -115,7 +115,7 @@ td:last-child{color:var(--mute)}
 .cgrid{display:grid;gap:40px}
 @media(min-width:900px){.cgrid{grid-template-columns:1fr 1fr}}
 .info p{margin:0 0 6px}
-footer{padding:28px 0;font-size:13px;color:var(--mute)}
+footer{padding:28px 0 84px;font-size:13px;color:var(--mute)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 /* transport */
@@ -137,7 +137,21 @@ footer{padding:28px 0;font-size:13px;color:var(--mute)}
 .chk{display:flex;gap:10px;align-items:center;font-size:14px}
 .chk input{width:auto}
 .err{display:none;color:#B3402F;font-size:14px;margin:0}
+
+/* whatsapp */
+.wa{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:10px;background:var(--bronze);color:#fff;text-decoration:none;font:500 14px Montserrat,sans-serif;padding:13px 20px;border-radius:999px;box-shadow:0 6px 20px rgba(15,15,15,.28)}
+.wa:hover{background:#957C5C}
+.wa svg{width:20px;height:20px;flex:none}
+@media(max-width:520px){.wa span{display:none}.wa{padding:15px}}
 </style>
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#282B2B">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EL SIGNATURE">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 
@@ -297,7 +311,7 @@ footer{padding:28px 0;font-size:13px;color:var(--mute)}
 <h2 style="margin-bottom:20px">Commencer une conversation</h2>
 <p>Écrivez-nous en quelques lignes. Un membre de la maison vous répond personnellement.</p>
 <p style="margin-top:24px"><a href="mailto:contact@elsignature.com">contact@elsignature.com</a></p>
-<p><a href="tel:+261389063571">+261 38 90 63 571</a></p>
+<p><a href="tel:+261381526116">+261 38 15 26 116</a> · <a href="https://wa.me/261381526116?text=Bonjour%20EL%20SIGNATURE%2C%20j%27aimerais%20vous%20parler%20d%27un%20projet." target="_blank" rel="noopener">WhatsApp</a></p>
 </div>
 <div>
 <form class="form" id="f">
@@ -317,7 +331,7 @@ footer{padding:28px 0;font-size:13px;color:var(--mute)}
 </div>
 </div></section>
 
-<footer><div class="wrap">© EL SIGNATURE. Conciergerie privée &amp; découverte.</div></footer>
+<footer><div class="wrap">© EL SIGNATURE. Conciergerie privée &amp; découverte. <a href="#" id="inst" hidden style="margin-left:16px">Installer l'application</a><span id="iosnote" hidden style="margin-left:16px">Sur iPhone : Partager, puis « Sur l'écran d'accueil ».</span></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
@@ -406,6 +420,16 @@ async function loadVehicles(){
   });
 }
 if(sb)loadVehicles();else{$('vlist').textContent=''}
+
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});
+var dp=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;document.getElementById('inst').hidden=false});
+document.getElementById('inst').addEventListener('click',function(e){e.preventDefault();if(dp){dp.prompt();dp=null;this.hidden=true}});
+var isIos=/iphone|ipad|ipod/i.test(navigator.userAgent),isStand=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
+var note=document.getElementById('iosnote');if(note&&isIos&&!isStand)note.hidden=false;
 </script>
+<a class="wa" href="https://wa.me/261381526116?text=Bonjour%20EL%20SIGNATURE%2C%20j%27aimerais%20vous%20parler%20d%27un%20projet." target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.9 7L4 20l1.5-4A8 8 0 1 1 20 11.5z"/><path d="M9 9.2c.3 2.4 2.4 4.5 4.8 4.8l1-1.2-1.8-.9-.7.7a4 4 0 0 1-1.9-1.9l.7-.7-.9-1.8z" fill="currentColor" stroke="none"/></svg>
+<span>WhatsApp</span></a>
 </body>
 </html>

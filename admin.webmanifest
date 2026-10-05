@@ -1,0 +1,33 @@
+{
+ "id": "/admin.html",
+ "name": "EL SIGNATURE Administration",
+ "short_name": "EL Admin",
+ "description": "EL SIGNATURE, conciergerie privée & découverte.",
+ "start_url": "/admin.html",
+ "scope": "/admin.html",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#F9F7F2",
+ "theme_color": "#282B2B",
+ "lang": "fr",
+ "icons": [
+  {
+   "src": "/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
