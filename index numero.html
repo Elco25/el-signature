@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="EL SIGNATURE, conciergerie privée et de découverte : voyages sur mesure, expériences, conciergerie, transport. Premier chapitre : Madagascar.">
+<title>EL SIGNATURE — Conciergerie privée & découverte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ivoire:#F9F7F2;--sable:#E6DCC8;--taupe:#C9B8A0;--bronze:#A88F6F;--charcoal:#282B2B;--noir:#0F0F0F;
+--bg:var(--ivoire);--ink:var(--charcoal);--mute:#6B6A66;--line:#DDD5C6;--field:#FFFFFF;--alt:#E6DCC8;--onalt:#282B2B;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141515;--ink:#EDE8DD;--mute:#A39F95;--line:#2E3030;--field:#1C1E1E;--alt:#1E2020;--onalt:#EDE8DD}}
+:root[data-theme="dark"]{--bg:#141515;--ink:#EDE8DD;--mute:#A39F95;--line:#2E3030;--field:#1C1E1E;--alt:#1E2020;--onalt:#EDE8DD}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 Montserrat,system-ui,sans-serif}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--bronze);outline-offset:3px}
+.hero{position:relative;min-height:88vh;color:#F4EFE6;display:flex;flex-direction:column;
+background:radial-gradient(120% 70% at 78% 8%,rgba(214,160,100,.55),transparent 55%),linear-gradient(180deg,#3B3A35 0%,#2A2E2C 45%,#1B2423 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,15,15,.55),transparent 70%);pointer-events:none}
+.hero>*{position:relative;z-index:1}
+nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.mono{font:400 38px/1 "Playfair Display",Georgia,serif;color:var(--taupe);letter-spacing:-.04em}
+.brand b{display:block;font:500 15px Montserrat,sans-serif;letter-spacing:.3em}
+.brand small{display:block;font-size:8.5px;letter-spacing:.22em;opacity:.7;margin-top:2px;white-space:nowrap}
+.links{display:none;gap:26px;font-size:13px}
+.links a{text-decoration:none;opacity:.85}
+.links a:hover{opacity:1;color:var(--taupe)}
+@media(min-width:980px){.links{display:flex}}
+.btn{display:inline-block;font:500 14px Montserrat,sans-serif;background:var(--bronze);color:#fff;border:1px solid var(--bronze);padding:15px 26px;text-decoration:none;cursor:pointer}
+.btn:hover{background:#957C5C}
+.btn.line{background:transparent;border-color:rgba(255,255,255,.7)}
+.btn.line:hover{background:rgba(255,255,255,.12)}
+.hero-body{flex:1;display:flex;align-items:center;padding:48px 0 72px}
+h1,h2,h3.s{font-family:"Playfair Display",Georgia,serif;font-weight:400}
+h1{font-size:clamp(34px,6vw,64px);line-height:1.15;margin:0 0 36px;max-width:16em}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+section{padding:80px 0}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-bottom:32px}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.15;margin:0}
+.head p{margin:0;color:var(--mute);max-width:44ch;font-size:14px}
+.cards{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:640px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.cards{grid-template-columns:repeat(4,1fr)}}
+.card{min-height:380px;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;color:#F4EFE6;position:relative}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(10,12,12,.78))}
+.card>*{position:relative}
+.card h3{font:400 17px/1.3 "Playfair Display",Georgia,serif;letter-spacing:.06em;margin:0 0 8px}
+.card p{margin:0 0 6px;font-size:14px;opacity:.9}
+.card .px{font-size:13px;color:var(--taupe);margin-bottom:16px}
+.card a{display:block;text-align:center;font-size:13px;font-weight:500;background:rgba(168,143,111,.92);color:#fff;padding:12px;text-decoration:none}
+.card a:hover{background:var(--bronze)}
+.c1{background:linear-gradient(160deg,#2F8C8A,#1B5E66 60%,#13363D)}
+.c2{background:linear-gradient(170deg,#D89B54,#8C5A33 55%,#2E241D)}
+.c3{background:linear-gradient(160deg,#6A4A36,#3A2A22 60%,#1D1714)}
+.c4{background:linear-gradient(160deg,#8FA39A,#4F6560 55%,#212B29)}
+.mada{margin-top:12px;padding:40px 32px;color:#F4EFE6;display:grid;gap:20px;align-items:center;background:linear-gradient(100deg,#1E2A2A,#3B4A44 60%,#7A6548)}
+@media(min-width:900px){.mada{grid-template-columns:1.1fr 1fr auto;padding:40px 44px}}
+.mada h2{font-size:clamp(24px,3vw,32px)}
+.mada p{margin:0;font-size:14px;opacity:.88;max-width:48ch}
+.vals{display:grid;gap:32px}
+@media(min-width:900px){.vals{grid-template-columns:2.4fr 1fr;gap:56px}}
+.pillars{display:grid;gap:28px}
+@media(min-width:640px){.pillars{grid-template-columns:repeat(3,1fr)}.pillars div+div{border-left:1px solid var(--line);padding-left:24px}}
+.pillars h3{margin:0 0 8px;font:500 13px Montserrat,sans-serif;letter-spacing:.18em;color:var(--bronze)}
+.pillars p{margin:0;font-size:14px;color:var(--mute)}
+.ask h2{font-size:26px;margin-bottom:12px}
+.ask p{font-size:14px;color:var(--mute);margin:0 0 20px}
+
+/* offres détaillées */
+.offer{border-top:1px solid var(--line)}
+.ogrid{display:grid;gap:36px}
+@media(min-width:900px){.ogrid{grid-template-columns:1fr 1fr;gap:64px}}
+.offer .tag{color:var(--bronze);font-size:13px;letter-spacing:.2em;margin:0 0 10px}
+.offer h2{margin-bottom:14px}
+.offer .sub{font:400 22px/1.3 "Playfair Display",Georgia,serif;margin:0 0 16px}
+.offer p{color:var(--mute);margin:0 0 14px;max-width:52ch}
+.offer h3{font:500 13px Montserrat,sans-serif;letter-spacing:.16em;color:var(--bronze);margin:0 0 12px}
+.offer ul{margin:0 0 28px;padding:0;list-style:none;columns:1}
+@media(min-width:560px){.offer ul.two{columns:2;column-gap:28px}}
+.offer li{padding:6px 0;border-bottom:1px solid var(--line);font-size:14px;break-inside:avoid}
+.price{display:grid;gap:0;margin:0 0 20px}
+.price div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.price b{font-weight:600;white-space:nowrap}
+.note{font-size:13px;color:var(--mute);margin:0 0 20px}
+
+/* parcours (vraie séquence) */
+.alt{background:var(--alt);color:var(--onalt)}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:22px;counter-reset:s}
+@media(min-width:900px){.steps{grid-template-columns:repeat(4,1fr)}}
+.steps li{counter-increment:s;position:relative;padding-left:44px;font-size:14px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:-6px;font:400 30px "Playfair Display",Georgia,serif;color:var(--bronze)}
+.steps b{display:block;font-weight:600;margin-bottom:2px}
+.delai{display:grid;gap:12px;margin-top:36px;font-size:14px}
+@media(min-width:760px){.delai{grid-template-columns:1fr 1fr 1fr}}
+.delai div{border-top:1px solid var(--bronze);padding-top:12px}
+
+/* tableau */
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:14px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 12px Montserrat,sans-serif;letter-spacing:.14em;color:var(--bronze)}
+td:last-child{color:var(--mute)}
+.scroll{overflow-x:auto}
+.fine{font-size:13px;color:var(--mute);margin-top:18px;max-width:70ch}
+
+/* contact */
+.form{display:grid;gap:12px}
+.form input,.form textarea,.form select{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--field);border:1px solid var(--line);padding:14px 16px;border-radius:0}
+.ok{display:none;padding:18px;border:1px solid var(--bronze)}
+.cgrid{display:grid;gap:40px}
+@media(min-width:900px){.cgrid{grid-template-columns:1fr 1fr}}
+.info p{margin:0 0 6px}
+footer{padding:28px 0;font-size:13px;color:var(--mute)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* transport */
+.vgrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.veh{background:var(--field);border:1px solid var(--line);display:flex;flex-direction:column}
+.vph{background:var(--alt)}
+.vph .main{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.vph .nophoto{aspect-ratio:4/3;display:grid;place-items:center;color:var(--mute);font-size:13px}
+.vth{display:flex;gap:6px;padding:6px;overflow-x:auto}
+.vth img{width:64px;height:48px;object-fit:cover;cursor:pointer;opacity:.7;border:0}
+.vth img:hover,.vth img.on{opacity:1}
+.vbody{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.vbody h3{font:400 22px/1.2 "Playfair Display",Georgia,serif;margin:0}
+.vmeta{font-size:13px;color:var(--bronze);margin:0;letter-spacing:.04em}
+.vbody p.vd{margin:0;font-size:14px;color:var(--mute)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.chips li{font-size:12px;border:1px solid var(--line);padding:3px 10px}
+.vprice{font:500 17px Montserrat,sans-serif;margin-top:auto;padding-top:6px}
+.chk{display:flex;gap:10px;align-items:center;font-size:14px}
+.chk input{width:auto}
+.err{display:none;color:#B3402F;font-size:14px;margin:0}
+
+/* whatsapp */
+.wa{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:10px;background:var(--bronze);color:#fff;text-decoration:none;font:500 14px Montserrat,sans-serif;padding:13px 20px;border-radius:999px;box-shadow:0 6px 20px rgba(15,15,15,.28)}
+.wa:hover{background:#957C5C}
+.wa svg{width:20px;height:20px;flex:none}
+@media(max-width:520px){.wa span{display:none}.wa{padding:15px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+<div class="wrap" style="width:100%">
+<nav>
+<a class="brand" href="#"><span class="mono">EL</span><span><b>EL SIGNATURE</b><small>CONCIERGERIE PRIVÉE &amp; DÉCOUVERTE</small></span></a>
+<div class="links"><a href="#journey">Voyages</a><a href="#experience">Expériences</a><a href="#personal">Conciergerie</a><a href="#transport">Transport</a><a href="#private">Private</a><a href="#tarifs">Tarifs</a></div>
+<a class="btn" href="#contact">Commencer une conversation</a>
+</nav>
+<div class="hero-body"><div>
+<h1>Nous connaissons les bons endroits, les bonnes personnes et les expériences qui méritent votre temps.</h1>
+<div class="cta"><a class="btn" href="#contact">Commencer une conversation</a><a class="btn line" href="#valeurs">Découvrir EL SIGNATURE</a></div>
+</div></div>
+</div>
+</header>
+
+<section id="services"><div class="wrap">
+<div class="head"><h2>Nos services</h2><p>Une maison privée de conciergerie et de découverte, pour des voyageurs qui apprécient le temps, le goût et les expériences authentiques.</p></div>
+<div class="cards">
+<div class="card c1"><h3>SIGNATURE JOURNEY</h3><p>Votre voyage, pensé pour vous.</p><div class="px">Dès 250 €</div><a href="#journey">Imaginer mon voyage</a></div>
+<div class="card c2"><h3>SIGNATURE EXPERIENCE</h3><p>Des lieux et des moments qui méritent d'être vécus.</p><div class="px">Dès 50 €</div><a href="#experience">Découvrir les expériences</a></div>
+<div class="card c3"><h3>SIGNATURE PERSONAL</h3><p>Une demande. Nous nous en occupons.</p><div class="px">Dès 25 €</div><a href="#personal">Faire une demande</a></div>
+<div class="card c4"><h3>EL SIGNATURE PRIVATE</h3><p>Une relation privilégiée avec la maison.</p><div class="px">690 € / an, tarif fondateur</div><a href="#private">Demander un accès privé</a></div>
+</div>
+<div class="mada">
+<h2>Notre premier chapitre : Madagascar.</h2>
+<p>Une terre de paysages remarquables, de rencontres rares et de lieux qui méritent d'être découverts autrement.</p>
+<a class="btn" href="#contact" data-s="Madagascar">Découvrir Madagascar</a>
+</div>
+</div></section>
+
+<section id="valeurs" style="padding-top:0"><div class="wrap vals">
+<div>
+<h2 style="margin-bottom:32px">Votre temps compte.</h2>
+<div class="pillars">
+<div><h3>PERSONNEL</h3><p>Tout commence par comprendre ce qui compte pour vous.</p></div>
+<div><h3>SÉLECTIONNÉ</h3><p>Nous recommandons moins, mais mieux.</p></div>
+<div><h3>FLUIDE</h3><p>Une fois votre choix fait, nous nous occupons des détails.</p></div>
+</div>
+</div>
+<div class="ask">
+<h2>Dites-nous ce que vous recherchez.</h2>
+<p>Vous n'avez pas besoin de savoir exactement ce que vous voulez. Parlez-nous de votre projet. Nous nous occupons de la suite.</p>
+<a class="btn" href="#contact">Commencer une conversation</a>
+</div>
+</div></section>
+
+<section id="journey" class="offer"><div class="wrap ogrid">
+<div>
+<p class="tag">SIGNATURE JOURNEY</p>
+<h2>Voyage sur mesure</h2>
+<p class="sub">Votre voyage, pensé pour vous.</p>
+<p>Dites-nous où vous souhaitez aller, comment vous aimez voyager et ce qui compte pour vous.</p>
+<p>Nous imaginons un voyage à votre mesure, de la première idée au dernier détail. Nous ne proposons pas de catalogue standard : chaque voyage est construit autour du client.</p>
+<a class="btn" href="#contact" data-s="Signature Journey">Imaginer mon voyage</a>
+</div>
+<div>
+<h3>CE QUE NOUS FAISONS</h3>
+<ul class="two"><li>Échange initial avec vous</li><li>Compréhension de vos goûts</li><li>Sélection des destinations</li><li>Hôtels, villas ou lodges</li><li>Transport et transferts</li><li>Restaurants</li><li>Expériences</li><li>Guides et accompagnateurs</li><li>Programme personnalisé</li><li>Coordination des réservations</li><li>Assistance avant et pendant le séjour</li></ul>
+<h3>FRAIS DE CONCEPTION</h3>
+<div class="price"><div><span>Voyage simple</span><b>250 €</b></div><div><span>Voyage premium</span><b>400 €</b></div><div><span>Voyage complexe ou multi-destination</span><b>600 € et plus</b></div></div>
+<p class="note">Les prestations réservées sont facturées séparément.</p>
+</div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+<div class="head"><h2>Comment se déroule un voyage</h2></div>
+<ol class="steps">
+<li><b>Conversation</b>Vous nous expliquez votre projet.</li>
+<li><b>Sélection</b>Nous retenons les meilleures possibilités.</li>
+<li><b>Proposition</b>Vous recevez une proposition claire et personnalisée.</li>
+<li><b>Validation</b>Vous validez et réglez les frais applicables.</li>
+<li><b>Organisation</b>Nous coordonnons les réservations.</li>
+<li><b>Départ</b>Vous recevez tous les éléments nécessaires.</li>
+<li><b>Assistance</b>Nous restons disponibles selon le niveau de service choisi.</li>
+</ol>
+<div class="delai">
+<div><b>Première réponse</b><br>Moins de 24 heures ouvrées</div>
+<div><b>Proposition</b><br>2 à 5 jours ouvrés, selon la complexité</div>
+<div><b>Demande urgente</b><br>Un supplément peut s'appliquer</div>
+</div>
+</div></section>
+
+<section id="experience" class="offer"><div class="wrap ogrid">
+<div>
+<p class="tag">SIGNATURE EXPERIENCE</p>
+<h2>Expériences privées</h2>
+<p class="sub">Des lieux et des moments qui méritent d'être vécus.</p>
+<p>Certaines expériences ne se trouvent pas dans un catalogue. Elles se découvrent grâce aux bonnes personnes, aux bons endroits et à une connaissance réelle du terrain.</p>
+<p>Nous sélectionnons et imaginons des expériences privées pour leur caractère, leur authenticité et leur capacité à créer un véritable souvenir.</p>
+<a class="btn" href="#contact" data-s="Signature Experience">Découvrir les expériences</a>
+</div>
+<div>
+<h3>EXEMPLES</h3>
+<ul class="two"><li>Journée privée en bateau</li><li>Expérience gastronomique</li><li>Rencontre avec un artisan</li><li>Découverte culturelle</li><li>Photographie</li><li>Nature</li><li>Randonnée privée</li><li>Plongée</li><li>Excursion personnalisée</li><li>Dîner particulier</li><li>Expérience romantique</li><li>Moment privé en famille</li></ul>
+<h3>TARIFS</h3>
+<div class="price"><div><span>Expérience existante, frais de service</span><b>50 à 150 €</b></div><div><span>Expérience entièrement créée, frais de conception</span><b>Dès 150 €</b></div><div><span>Expérience très complexe</span><b>250 € et plus</b></div></div>
+<p class="note">Le prix de l'expérience et le coût des prestations s'ajoutent aux frais.</p>
+</div>
+</div></section>
+
+<section id="personal" class="offer"><div class="wrap ogrid">
+<div>
+<p class="tag">SIGNATURE PERSONAL</p>
+<h2>Conciergerie personnelle</h2>
+<p class="sub">Une demande. Nous nous en occupons.</p>
+<p>Une réservation, un transport, un cadeau, une surprise ou une demande particulière. Vous n'avez pas besoin de chercher le bon prestataire : vous nous confiez votre demande, nous nous chargeons de trouver la bonne solution.</p>
+<a class="btn" href="#contact" data-s="Signature Personal">Faire une demande</a>
+</div>
+<div>
+<h3>EXEMPLES</h3>
+<ul class="two"><li>Réserver un restaurant</li><li>Organiser un transfert</li><li>Trouver un cadeau</li><li>Organiser des fleurs</li><li>Préparer une surprise</li><li>Organiser un anniversaire</li><li>Trouver un photographe</li><li>Organiser un événement</li><li>Rechercher une activité</li><li>Organiser du shopping</li><li>Gérer une demande particulière</li></ul>
+<h3>TARIFS</h3>
+<div class="price"><div><span>Demande simple (réservation, transfert, commande)</span><b>Dès 25 €</b></div><div><span>Demande personnalisée</span><b>50 à 100 €</b></div><div><span>Demande complexe</span><b>Dès 100 €</b></div></div>
+<p class="note">Pour une demande complexe, le prix, les frais éventuels, les conditions et ce qui est inclus vous sont communiqués avant toute exécution. Un supplément peut s'appliquer pour une urgence ou hors horaires habituels.</p>
+</div>
+</div></section>
+
+<section id="transport" class="offer"><div class="wrap">
+<div class="head"><div><p class="tag">TRANSPORT</p><h2>Transport privé</h2></div>
+<p>Des véhicules sélectionnés, avec ou sans chauffeur, pour vos transferts et vos déplacements.</p></div>
+<div id="vlist" class="vgrid"></div>
+</div></section>
+
+<section id="private" class="offer alt" style="border-top:0"><div class="wrap ogrid">
+<div>
+<p class="tag">EL SIGNATURE PRIVATE</p>
+<h2>Relation privée</h2>
+<p class="sub">Une relation privilégiée avec la maison.</p>
+<p style="color:inherit;opacity:.85">EL SIGNATURE PRIVATE s'adresse à ceux qui souhaitent conserver une relation personnelle et continue avec EL SIGNATURE. Une connaissance plus fine de vos goûts, une attention prioritaire, un accès simplifié à notre maison et à notre réseau.</p>
+<div class="price" style="margin-top:24px"><div><span>Tarif fondateur, 20 premiers membres</span><b>690 € / an</b></div><div><span>Tarif standard</span><b>Dès 900 € / an</b></div></div>
+<a class="btn" href="#contact" data-s="EL Signature Private">Demander un accès privé</a>
+</div>
+<div>
+<h3>CE QUE LE MEMBRE OBTIENT</h3>
+<ul><li><b>Priorité</b> : vos demandes sont traitées en premier.</li><li><b>Conciergerie</b> : accès au service Signature Personal.</li><li><b>Voyages</b> : accompagnement prioritaire pour vos projets.</li><li><b>Expériences</b> : accès aux expériences sélectionnées par la maison.</li><li><b>Recommandations</b> : vos préférences conservées pour personnaliser chaque demande.</li><li><b>Relation personnelle</b> : un interlocuteur privilégié lorsque cela est possible.</li></ul>
+<p class="note" style="color:inherit;opacity:.8">Nous faisons notre maximum pour ouvrir les bonnes portes, mais nous ne promettons jamais ce que nous ne contrôlons pas : ni table, ni chambre, ni surclassement garantis.</p>
+</div>
+</div></section>
+
+<section id="tarifs"><div class="wrap">
+<div class="head"><h2>Tarifs de lancement</h2></div>
+<div class="scroll"><table>
+<thead><tr><th>OFFRE</th><th>PRIX DE LANCEMENT</th><th>FONCTION</th></tr></thead>
+<tbody>
+<tr><td>Signature Journey</td><td>Dès 250 €</td><td>Voyage sur mesure</td></tr>
+<tr><td>Signature Experience</td><td>Dès 50 €</td><td>Expériences privées</td></tr>
+<tr><td>Signature Personal</td><td>Dès 25 €</td><td>Conciergerie</td></tr>
+<tr><td>EL Signature Private</td><td>690 € / an, tarif fondateur</td><td>Relation privilégiée</td></tr>
+</tbody></table></div>
+<p class="fine">Les prestations, réservations et achats réalisés pour votre compte sont facturés séparément. Les frais de conception sont réglés avant le début du travail. Les réservations nécessitant un paiement sont réglées avant confirmation. Pour les voyages ou événements importants : acompte avant confirmation, puis solde selon les conditions du fournisseur, qui vous sont communiquées, avec les conditions d'annulation, avant tout paiement.</p>
+</div></section>
+
+<section id="contact" class="alt"><div class="wrap cgrid">
+<div class="info">
+<h2 style="margin-bottom:20px">Commencer une conversation</h2>
+<p>Écrivez-nous en quelques lignes. Un membre de la maison vous répond personnellement.</p>
+<p style="margin-top:24px"><a href="mailto:contact@elsignature.com">contact@elsignature.com</a></p>
+<p><a href="tel:+261381526116">+261 38 15 26 116</a> · <a href="https://wa.me/261381526116?text=Bonjour%20EL%20SIGNATURE%2C%20j%27aimerais%20vous%20parler%20d%27un%20projet." target="_blank" rel="noopener">WhatsApp</a></p>
+</div>
+<div>
+<form class="form" id="f">
+<input type="text" id="fname" placeholder="Votre nom" required maxlength="200" aria-label="Votre nom">
+<input type="email" id="femail" placeholder="Votre e-mail" required maxlength="320" aria-label="Votre e-mail">
+<select id="svc" aria-label="Ce qui vous intéresse">
+<option value="">Ce qui vous intéresse</option>
+<option>Signature Journey</option><option>Signature Experience</option><option>Signature Personal</option><option>Transport</option><option>EL Signature Private</option><option>Madagascar</option>
+</select>
+<textarea id="fmsg" rows="4" maxlength="5000" placeholder="Parlez-nous de votre projet" aria-label="Votre projet"></textarea>
+<label class="chk"><input type="checkbox" id="furg"> Demande urgente (un supplément peut s'appliquer)</label>
+<input type="text" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px">
+<button class="btn" type="submit" id="fbtn" style="justify-self:start">Envoyer ma demande</button>
+</form>
+<p class="err" id="err" role="alert"></p>
+<p class="ok" id="ok" role="status">Merci. Nous vous répondons personnellement, sous 24 heures ouvrées.</p>
+</div>
+</div></section>
+
+<footer><div class="wrap">© EL SIGNATURE. Conciergerie privée &amp; découverte.</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+var SB_URL='https://eifjsmlvvlarqwuuhaxt.supabase.co';
+var SB_KEY='sb_publishable_Pf6tTcvMceb6agyh_b8weg_X-sj-BbX';
+var sb=null;
+try{sb=supabase.createClient(SB_URL,SB_KEY)}catch(e){}
+var $=function(id){return document.getElementById(id)};
+function el(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n}
+
+document.querySelectorAll('[data-s]').forEach(function(a){a.addEventListener('click',function(){$('svc').value=a.getAttribute('data-s')})});
+
+$('f').addEventListener('submit',async function(e){
+  e.preventDefault();
+  if($('hp').value)return;
+  var btn=$('fbtn'),er=$('err'),form=this;
+  er.style.display='none';btn.disabled=true;btn.textContent='Envoi en cours…';
+  var ok=false;
+  try{
+    var r=await sb.from('requests').insert({
+      full_name:$('fname').value.trim(),
+      email:$('femail').value.trim(),
+      offer:$('svc').value||null,
+      message:$('fmsg').value.trim()||null,
+      urgent:$('furg').checked
+    });
+    ok=!r.error;
+  }catch(x){ok=false}
+  if(!ok){
+    er.textContent="Votre demande n'a pas pu être envoyée. Écrivez-nous à contact@elsignature.com.";
+    er.style.display='block';btn.disabled=false;btn.textContent='Envoyer ma demande';return;
+  }
+  form.style.display='none';$('ok').style.display='block';
+});
+
+var SYM={EUR:'€',USD:'$',MGA:'Ar'};
+async function loadVehicles(){
+  var box=$('vlist');
+  var data=[];
+  try{
+    var r=await sb.from('vehicles').select('*').order('sort_order').order('created_at');
+    if(!r.error)data=r.data||[];
+  }catch(e){}
+  box.textContent='';
+  if(!data.length){
+    box.style.display='block';
+    box.appendChild(el('p','note',"Notre sélection de véhicules arrive bientôt. Décrivez-nous votre besoin de transport et nous vous proposons la bonne solution."));
+    var b=el('a','btn','Faire une demande de transport');b.href='#contact';
+    b.addEventListener('click',function(){$('svc').value='Transport'});
+    box.appendChild(b);return;
+  }
+  data.forEach(function(v){
+    var card=el('div','veh'),ph=el('div','vph');
+    var photos=v.photos||[];
+    if(photos.length){
+      var main=el('img','main');main.src=photos[0];main.alt=v.name;main.loading='lazy';ph.appendChild(main);
+      if(photos.length>1){
+        var th=el('div','vth');
+        photos.forEach(function(u,i){
+          var t=el('img',i===0?'on':'');t.src=u;t.alt='';t.loading='lazy';
+          t.addEventListener('click',function(){main.src=u;th.querySelectorAll('img').forEach(function(x){x.className=''});t.className='on'});
+          th.appendChild(t);
+        });
+        ph.appendChild(th);
+      }
+    }else{ph.appendChild(el('div','nophoto','Photo à venir'))}
+    card.appendChild(ph);
+    var body=el('div','vbody');
+    body.appendChild(el('h3',null,v.name));
+    var meta=[];
+    if(v.category)meta.push(v.category);
+    if(v.seats)meta.push(v.seats+' places');
+    if(v.luggage)meta.push(v.luggage+' bagages');
+    meta.push(v.with_driver?'Avec chauffeur':'Sans chauffeur');
+    body.appendChild(el('p','vmeta',meta.join(' · ')));
+    if(v.description)body.appendChild(el('p','vd',v.description));
+    if(v.features&&v.features.length){
+      var ul=el('ul','chips');v.features.forEach(function(f){ul.appendChild(el('li',null,f))});body.appendChild(ul);
+    }
+    var price=(v.price_on_request||v.price==null)?'Prix sur demande':Number(v.price).toLocaleString('fr-FR')+' '+(SYM[v.currency]||v.currency)+' '+v.price_unit;
+    body.appendChild(el('div','vprice',price));
+    var btn=el('a','btn','Demander ce véhicule');btn.href='#contact';
+    btn.addEventListener('click',function(){$('svc').value='Transport';$('fmsg').value='Véhicule souhaité : '+v.name+'\n'});
+    body.appendChild(btn);
+    card.appendChild(body);box.appendChild(card);
+  });
+}
+if(sb)loadVehicles();else{$('vlist').textContent=''}
+</script>
+<a class="wa" href="https://wa.me/261381526116?text=Bonjour%20EL%20SIGNATURE%2C%20j%27aimerais%20vous%20parler%20d%27un%20projet." target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.9 7L4 20l1.5-4A8 8 0 1 1 20 11.5z"/><path d="M9 9.2c.3 2.4 2.4 4.5 4.8 4.8l1-1.2-1.8-.9-.7.7a4 4 0 0 1-1.9-1.9l.7-.7-.9-1.8z" fill="currentColor" stroke="none"/></svg>
+<span>WhatsApp</span></a>
+</body>
+</html>
