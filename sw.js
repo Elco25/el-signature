@@ -1,5 +1,5 @@
-var V='els-v3';
-var SHELL=['/','/index.html','/admin.html','/style.css','/site.js','/logo-mark.png','/icon-192.png'];
+var V='els-v13';
+var SHELL=['/','/index.html','/admin.html','/style.css','/site.js','/configurateur.js','/catalogue.js','/destinations.html','/offre.html','/signature.html','/logo-mark.png','/icon-192.png'];
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(V).then(function(c){return c.addAll(SHELL)}).then(function(){return self.skipWaiting()}));
 });
@@ -12,13 +12,13 @@ self.addEventListener('fetch',function(e){
   var u=new URL(r.url);
   if(u.origin!==location.origin)return; // jamais la base de données
   if(r.mode==='navigate'){
-    e.respondWith(fetch(r).then(function(res){var c=res.clone();caches.open(V).then(function(ch){ch.put(r,c)});return res})
+    e.respondWith(fetch(r).then(function(res){if(res&&res.ok){var c=res.clone();caches.open(V).then(function(ch){ch.put(r,c)})}return res})
       .catch(function(){return caches.match(r).then(function(m){return m||caches.match('/index.html')})}));
     return;
   }
   // fichiers du site : on sert la copie en cache et on la met à jour en arrière-plan
   e.respondWith(caches.match(r).then(function(m){
-    var net=fetch(r).then(function(res){var c=res.clone();caches.open(V).then(function(ch){ch.put(r,c)});return res}).catch(function(){return m});
+    var net=fetch(r).then(function(res){if(res&&res.ok){var c=res.clone();caches.open(V).then(function(ch){ch.put(r,c)})}return res}).catch(function(){return m});
     return m||net;
   }));
 });

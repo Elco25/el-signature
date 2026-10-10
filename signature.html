@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Construisez votre signature — EL SIGNATURE</title>
+<meta name="description" content="Choisissez votre destination, vos envies et les services dont vous souhaitez profiter : EL SIGNATURE transforme votre sélection en une expérience entièrement personnalisée.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#282B2B">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EL SIGNATURE">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Construisez votre signature — EL SIGNATURE">
+<meta property="og:description" content="Choisissez votre destination, vos envies et les services dont vous souhaitez profiter : EL SIGNATURE transforme votre sélection en une expérience entièrement personnalisée.">
+<meta property="og:image" content="https://el-signature.vercel.app/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="page-cfg">
+<a class="skip" href="#contenu">Aller au contenu</a>
+<header class="hero sm">
+<div class="wrap" style="width:100%">
+<nav>
+<a class="brand" href="/"><img class="mk" src="/logo-mark.png" alt="" width="112" height="44"><span><b>EL SIGNATURE</b><small>CONCIERGERIE PRIVÉE &amp; DÉCOUVERTE</small></span></a>
+<div class="links" id="links"><a href="/voyages.html">Voyages</a><a href="/experiences.html">Expériences</a><a href="/conciergerie.html">Conciergerie</a><a href="/transport.html">Transport</a><a href="/private.html">Private</a></div>
+<a class="btn navcta" href="/signature.html">Construisez votre signature</a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="links"><span></span><span></span><span></span></button>
+</nav>
+<div class="hero-body"><div>
+<p class="tag">SUR MESURE</p>
+<h1>Construisez votre signature</h1>
+<p class="psub">Choisissez votre destination, vos envies et les services dont vous souhaitez profiter. Nous transformons votre sélection en une expérience entièrement personnalisée.</p>
+</div></div>
+</div>
+</header>
+
+<main id="contenu">
+<section><div class="wrap cfg" id="cfg">
+<div class="cfg-main" id="cfg-main">
+<div class="cfg-prog"><p id="cfg-prog-t" aria-live="polite"></p><div class="bar"><i id="cfg-prog-i"></i></div></div>
+<div id="cfg-step"><noscript><p>Le configurateur nécessite JavaScript. Vous pouvez nous écrire directement depuis la <a href="/contact.html">page Contact</a>.</p></noscript></div>
+
+<div id="cfg-form-wrap" class="cfg-formwrap" hidden>
+<h2 class="cfg-h">Parlez-nous de votre projet</h2>
+<p class="lead">Quelques informations pour que nous puissions vous répondre personnellement.</p>
+<form class="form cfg-form" id="cfg-form">
+<div class="row two"><input type="text" id="cf-prenom" placeholder="Prénom" required maxlength="100" autocomplete="given-name" aria-label="Prénom"><input type="text" id="cf-nom" placeholder="Nom" required maxlength="100" autocomplete="family-name" aria-label="Nom"></div>
+<input type="email" id="cf-email" placeholder="E-mail" required maxlength="320" autocomplete="email" aria-label="E-mail">
+<input type="tel" id="cf-tel" placeholder="Téléphone / WhatsApp" maxlength="40" autocomplete="tel" aria-label="Téléphone ou WhatsApp">
+<div class="row two"><input type="text" id="cf-dates" placeholder="Dates souhaitées" maxlength="200" aria-label="Dates souhaitées"><input type="text" id="cf-voy" placeholder="Nombre de voyageurs" maxlength="60" aria-label="Nombre de voyageurs"></div>
+<input type="text" id="cf-budget" placeholder="Budget indicatif (facultatif)" maxlength="100" aria-label="Budget indicatif, facultatif">
+<textarea id="cf-message" rows="4" placeholder="Message / souhait particulier" maxlength="5000" aria-label="Message ou souhait particulier"></textarea>
+<label class="chk"><input type="checkbox" id="cf-conseil"> Je souhaite être conseillé par EL SIGNATURE.</label>
+<input type="text" id="cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px">
+<p class="consent">En envoyant ce formulaire, vous acceptez que vos informations soient utilisées pour répondre à votre demande. <a href="/confidentialite.html">Politique de confidentialité</a>.</p>
+<p class="cfg-err" id="cf-err" role="alert" hidden></p>
+<button class="btn" type="submit" id="cf-btn" style="justify-self:start">Envoyer mon projet</button>
+</form>
+</div>
+
+<div class="cfg-bar" id="cfg-bar">
+<button type="button" class="cfg-count" id="cfg-count">Ma sélection · 0</button>
+<div class="cfg-nav"><button type="button" class="btn line-dark" id="cfg-back" hidden>Retour</button><button type="button" class="btn" id="cfg-next">Continuer</button></div>
+</div>
+</div>
+<aside class="cfg-side" id="cfg-side" aria-label="Votre signature"></aside>
+</div></section>
+
+<section id="cfg-done" hidden><div class="wrap">
+<h2 class="cfg-h">Merci. Votre projet est entre nos mains.</h2>
+<p class="lead">Un membre de la maison vous répond personnellement, en moins de 24 heures ouvrées. Voici ce que nous avons reçu.</p>
+<div class="cfg-final" id="cfg-done-sum"></div>
+<p style="margin-top:28px"><a class="btn" href="/">Retour à l'accueil</a></p>
+</div></section>
+
+<div class="cfg-sheet" id="cfg-sheet" role="dialog" aria-modal="true" aria-label="Ma sélection" hidden><div>
+<button type="button" class="cfg-close" id="cfg-sheet-close">Fermer</button>
+<div id="cfg-sheet-body"></div>
+</div></div>
+</main>
+
+<footer><div class="wrap fgrid">
+<span>© EL SIGNATURE. Conciergerie privée &amp; découverte.</span>
+<div class="flinks"><a href="/madagascar.html">Madagascar</a><a href="/tarifs.html">Tarifs</a><a href="/contact.html">Contact</a><a href="https://wa.me/261381526116?text=Bonjour%20EL%20SIGNATURE%2C%20j%27aimerais%20vous%20parler%20d%27un%20projet." target="_blank" rel="noopener">WhatsApp</a></div>
+<div class="flinks legal"><a href="/mentions-legales.html">Mentions légales</a><a href="/confidentialite.html">Confidentialité</a><a href="/conditions.html">Conditions de vente</a></div>
+<a href="#" id="inst" hidden>Installer l'application</a><span id="iosnote" hidden>Sur iPhone : Partager, puis « Sur l'écran d'accueil ».</span>
+</div></footer>
+
+<a class="wa" href="https://wa.me/261381526116?text=Bonjour%20EL%20SIGNATURE%2C%20j%27aimerais%20vous%20parler%20d%27un%20projet." target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.9 7L4 20l1.5-4A8 8 0 1 1 20 11.5z"/><path d="M9 9.2c.3 2.4 2.4 4.5 4.8 4.8l1-1.2-1.8-.9-.7.7a4 4 0 0 1-1.9-1.9l.7-.7-.9-1.8z" fill="currentColor" stroke="none"/></svg>
+<span>WhatsApp</span></a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="/site.js"></script>
+<script src="/configurateur.js"></script>
+</body>
+</html>

@@ -6,6 +6,7 @@
 <title>Contact — EL SIGNATURE</title>
 <meta name="description" content="Commencez une conversation avec EL SIGNATURE. Réponse en moins de 24 heures ouvrées.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -23,12 +24,13 @@
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
+<a class="skip" href="#contenu">Aller au contenu</a>
 <header class="hero sm">
 <div class="wrap" style="width:100%">
 <nav>
 <a class="brand" href="/"><img class="mk" src="/logo-mark.png" alt="" width="112" height="44"><span><b>EL SIGNATURE</b><small>CONCIERGERIE PRIVÉE &amp; DÉCOUVERTE</small></span></a>
 <div class="links" id="links"><a href="/voyages.html">Voyages</a><a href="/experiences.html">Expériences</a><a href="/conciergerie.html">Conciergerie</a><a href="/transport.html">Transport</a><a href="/private.html">Private</a></div>
-<a class="btn navcta" href="/contact.html">Commencer une conversation</a>
+<a class="btn navcta" href="/signature.html">Construisez votre signature</a>
 <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="links"><span></span><span></span><span></span></button>
 </nav>
 <div class="hero-body"><div>
@@ -39,6 +41,7 @@
 </div>
 </header>
 
+<main id="contenu">
 <section class="alt"><div class="wrap cgrid">
 <div class="info">
 <h2 style="margin-bottom:20px">Nos coordonnées</h2>
@@ -49,8 +52,8 @@
 </div>
 <div>
 <form class="form" id="f">
-<input type="text" id="fname" placeholder="Votre nom" required maxlength="200" aria-label="Votre nom">
-<input type="email" id="femail" placeholder="Votre e-mail" required maxlength="320" aria-label="Votre e-mail">
+<input type="text" id="fname" autocomplete="name" placeholder="Votre nom" required maxlength="200" aria-label="Votre nom">
+<input type="email" id="femail" autocomplete="email" placeholder="Votre e-mail" required maxlength="320" aria-label="Votre e-mail">
 <select id="svc" aria-label="Ce qui vous intéresse">
 <option value="">Ce qui vous intéresse</option>
 <option>Signature Journey</option><option>Signature Experience</option><option>Signature Personal</option><option>Transport</option><option>EL Signature Private</option><option>Madagascar</option>
@@ -59,15 +62,18 @@
 <label class="chk"><input type="checkbox" id="furg"> Demande urgente (un supplément peut s'appliquer)</label>
 <input type="text" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px">
 <button class="btn" type="submit" id="fbtn" style="justify-self:start">Envoyer ma demande</button>
+<p class="consent">En envoyant ce formulaire, vous acceptez que vos informations soient utilisées pour répondre à votre demande. <a href="/confidentialite.html">Politique de confidentialité</a>.</p>
 </form>
 <p class="err" id="err" role="alert"></p>
 <p class="ok" id="ok" role="status">Merci. Nous vous répondons personnellement, sous 24 heures ouvrées.</p>
 </div>
 </div></section>
+</main>
 
 <footer><div class="wrap fgrid">
 <span>© EL SIGNATURE. Conciergerie privée &amp; découverte.</span>
-<div class="flinks"><a href="/tarifs.html">Tarifs</a><a href="/contact.html">Contact</a><a href="https://wa.me/261381526116?text=Bonjour%20EL%20SIGNATURE%2C%20j%27aimerais%20vous%20parler%20d%27un%20projet." target="_blank" rel="noopener">WhatsApp</a></div>
+<div class="flinks"><a href="/madagascar.html">Madagascar</a><a href="/tarifs.html">Tarifs</a><a href="/contact.html">Contact</a><a href="https://wa.me/261381526116?text=Bonjour%20EL%20SIGNATURE%2C%20j%27aimerais%20vous%20parler%20d%27un%20projet." target="_blank" rel="noopener">WhatsApp</a></div>
+<div class="flinks legal"><a href="/mentions-legales.html">Mentions légales</a><a href="/confidentialite.html">Confidentialité</a><a href="/conditions.html">Conditions de vente</a></div>
 <a href="#" id="inst" hidden>Installer l'application</a><span id="iosnote" hidden>Sur iPhone : Partager, puis « Sur l'écran d'accueil ».</span>
 </div></footer>
 

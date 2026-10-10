@@ -62,6 +62,10 @@ td select{width:auto;padding:6px 8px}
 .th button{position:absolute;top:2px;right:2px;background:rgba(15,15,15,.7);color:#fff;border:0;width:24px;height:24px;cursor:pointer}
 .th button.cov{right:auto;left:2px}
 .th .cv{position:absolute;bottom:0;left:0;right:0;background:rgba(168,143,111,.9);color:#fff;font-size:11px;text-align:center}
+.cfgbox{background:var(--sand);border-left:3px solid var(--bronze);padding:16px 18px;display:grid;gap:10px}
+.cfgbox-t{font-size:12px;letter-spacing:.16em;color:var(--bronze-text,var(--bronze));font-weight:600}
+.cfgbox-r{display:grid;gap:2px;font-size:14px}
+.cfgbox-r b{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:500}
 #toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;z-index:30;font-size:14px}
 </style>
 <link rel="manifest" href="/admin.webmanifest">
@@ -87,6 +91,8 @@ td select{width:auto;padding:6px 8px}
 </form>
 </div>
 
+<div class="login" id="mfa" hidden></div>
+
 <div id="app" hidden>
 <div class="top"><span class="brand">EL SIGNATURE</span><div class="tabs" id="tabs"></div><button class="btn ghost" id="inst" hidden>Installer l'app</button><button class="btn ghost" id="out">Déconnexion</button></div>
 <main id="main"></main>
@@ -98,7 +104,9 @@ td select{width:auto;padding:6px 8px}
 <script>
 var SB_URL='https://eifjsmlvvlarqwuuhaxt.supabase.co';
 var SB_KEY='sb_publishable_Pf6tTcvMceb6agyh_b8weg_X-sj-BbX';
-var sb=supabase.createClient(SB_URL,SB_KEY);
+var sb=null;
+try{sb=supabase.createClient(SB_URL,SB_KEY)}catch(e){}
+if(!sb){var _e=document.getElementById('lerr');_e.textContent='Impossible de charger le module de connexion. Vérifiez votre connexion internet puis rechargez la page.';_e.hidden=false}
 var $=function(id){return document.getElementById(id)};
 
 function h(tag,props,kids){
@@ -115,15 +123,15 @@ function toast(m){var t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(t
 
 var STATUS_FR={nouvelle:'Nouvelle',conversation:'Conversation',qualification:'Qualification',proposition:'Proposition',paiement:'Paiement',execution:'Exécution',suivi:'Suivi',fidelisation:'Fidélisation',terminee:'Terminée',annulee:'Annulée'};
 var STATUS=Object.keys(STATUS_FR).map(function(s){return [s,STATUS_FR[s]]});
-var OFFERS=['Signature Journey','Signature Experience','Signature Personal','EL Signature Private','Transport','Madagascar'];
+var OFFERS=['Construisez votre signature','Signature Journey','Signature Experience','Signature Personal','EL Signature Private','Transport','Madagascar'];
 var CUR=['EUR','USD','MGA'];
 var KIND=[['conception','Frais de conception'],['service','Frais de service'],['acompte','Acompte'],['solde','Solde'],['prestation','Prestation'],['membership','Abonnement Private']];
 
 // champ: [clé, libellé, type, obligatoire, options]
 var T={
 requests:{label:'Demandes',order:'created_at',asc:false,def:{status:'nouvelle'},
-  cols:[['created_at','Date','date'],['full_name','Nom'],['offer','Offre'],['status','Statut','status'],['urgent','Urgent','bool']],
-  fields:[['full_name','Nom','text',1],['email','E-mail','email',1],['offer','Offre','select',0,OFFERS],['status','Statut','select',1,STATUS],['urgent','Demande urgente','bool'],['client_id','Client lié','lookup',0,['clients','full_name']],['message','Message du client','textarea'],['design_fee','Frais de conception (€)','number'],['notes','Notes internes','textarea']]},
+  cols:[['created_at','Date','date'],['full_name','Nom'],['offer','Offre'],['configuration','Destination','dest'],['status','Statut','status'],['urgent','Urgent','bool']],
+  fields:[['full_name','Nom','text',1],['email','E-mail','email',1],['phone','Téléphone / WhatsApp','text'],['offer','Offre','select',0,OFFERS],['status','Statut','select',1,STATUS],['urgent','Demande urgente','bool'],['client_id','Client lié','lookup',0,['clients','full_name']],['configuration','Configuration du client','config'],['travel_dates','Dates souhaitées','text'],['travelers','Nombre de voyageurs','text'],['budget','Budget indicatif','text'],['message','Message du client','textarea'],['design_fee','Frais de conception (€)','number'],['notes','Notes internes','textarea']]},
 clients:{label:'Clients',order:'created_at',asc:false,def:{},
   cols:[['full_name','Nom'],['email','E-mail'],['phone','Téléphone'],['private_member','Private','bool']],
   fields:[['full_name','Nom','text',1],['email','E-mail','email'],['phone','Téléphone','text'],['preferences','Préférences (goûts, habitudes)','textarea'],['private_member','Membre Private','bool'],['founder','Membre fondateur','bool'],['member_since','Membre depuis','date'],['notes','Notes','textarea']]},
@@ -135,27 +143,97 @@ vehicles:{label:'Transport',order:'sort_order',asc:true,def:{with_driver:true,ac
   fields:[['name','Nom du véhicule','text',1],['category','Catégorie (Berline, SUV, 4x4, Van…)','text'],['seats','Nombre de places','number'],['luggage','Nombre de bagages','number'],['with_driver','Avec chauffeur','bool'],['price','Prix','number'],['price_unit','Unité du prix','select',1,['par trajet','par heure','par jour']],['currency','Devise','select',1,CUR],['price_on_request','Afficher « Prix sur demande »','bool'],['description','Description','textarea'],['features','Équipements (séparés par des virgules)','tags'],['photos','Photos','photos'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
 partners:{label:'Partenaires',order:'created_at',asc:false,def:{},
   cols:[['name','Nom'],['category','Catégorie'],['rating','Note /5']],
-  fields:[['name','Nom','text',1],['category','Catégorie (hôtel, guide, restaurant…)','text'],['contact','Contact','text'],['rating','Note de 1 à 5','number'],['notes','Évaluation, remarques','textarea']]}
+  fields:[['name','Nom','text',1],['category','Catégorie (hôtel, guide, restaurant…)','text'],['contact','Contact','text'],['rating','Note de 1 à 5','number'],['notes','Évaluation, remarques','textarea']]},
+destinations:{label:'Destinations',order:'sort_order',asc:true,slugFrom:'name',def:{active:true,featured:false,sort_order:0},
+  cols:[['name','Destination'],['country','Pays'],['featured','À la une','bool'],['active','Visible','bool']],
+  fields:[['name','Nom','text',1],['slug','Identifiant web (laisser vide = automatique)','text'],['country','Pays','text'],['region','Région','text'],['short_description','Résumé (500 caractères max)','textarea'],['description','Description','textarea'],['image_url','Photo','image'],['featured','Mettre à la une','bool'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
+service_categories:{label:'Catégories',order:'sort_order',asc:true,slugFrom:'name',def:{active:true,sort_order:0},
+  cols:[['name','Catégorie'],['active','Visible','bool']],
+  fields:[['name','Nom (villa, hôtel, chauffeur, yacht…)','text',1],['slug','Identifiant web (laisser vide = automatique)','text'],['description','Description','textarea'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
+offers:{label:'Offres',order:'sort_order',asc:true,slugFrom:'title',def:{active:true,featured:false,sort_order:0,availability_status:'on_request',public_price_currency:'EUR',public_price_type:'on_request'},
+  cols:[['title','Offre'],['availability_status','Disponibilité'],['featured','À la une','bool'],['active','Visible','bool']],
+  fields:[['title','Titre','text',1],['slug','Identifiant web (laisser vide = automatique)','text'],['destination_id','Destination','lookup',1,['destinations','name']],['service_category_id','Catégorie','lookup',1,['service_categories','name']],['short_description','Résumé (500 caractères max)','textarea'],['description','Description','textarea'],['location','Lieu','text'],['capacity','Capacité (personnes)','number'],['features','Points forts (séparés par des virgules)','tags'],['availability_status','Disponibilité','select',1,[['available','Disponible'],['on_request','Sur demande'],['unavailable','Indisponible']]],['public_label','Mention affichée (ex. « Sur demande »)','text'],['public_price_type','Type de prix affiché','select',0,[['on_request','Sur demande'],['from','À partir de'],['fixed','Prix fixe'],['per_night','Par nuit'],['per_person','Par personne']]],['public_price','Prix affiché (indicatif)','number'],['public_price_currency','Devise','select',0,CUR],['main_image_url','Photo principale','image'],['featured','Mettre à la une','bool'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
+signatures:{label:'Signatures',order:'sort_order',asc:true,slugFrom:'title',def:{active:true,featured:false,sort_order:0},
+  cols:[['title','Signature'],['duration_label','Durée'],['featured','À la une','bool'],['active','Visible','bool']],
+  fields:[['title','Titre','text',1],['slug','Identifiant web (laisser vide = automatique)','text'],['subtitle','Sous-titre','text'],['destination_id','Destination','lookup',0,['destinations','name']],['duration_label','Durée (ex. 7 jours)','text'],['style','Style','text'],['description','Description','textarea'],['hero_image_url','Photo principale','image'],['featured','Mettre à la une','bool'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
+signature_items:{label:'Contenu des Signatures',order:'sort_order',asc:true,def:{included:true,sort_order:0},
+  cols:[['section_title','Section'],['included','Inclus','bool']],
+  fields:[['signature_id','Signature','lookup',1,['signatures','title']],['offer_id','Offre','lookup',1,['offers','title']],['section_title','Titre de section (ex. Jour 1, Hébergement)','text'],['description_override','Texte personnalisé','textarea'],['included','Inclus','bool'],['sort_order','Ordre (0 = en premier)','number']]}
 };
-var TABS=[['dash','Tableau de bord'],['requests','Demandes'],['clients','Clients'],['payments','Paiements'],['vehicles','Transport'],['partners','Partenaires']];
+function slugify(t){return String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
+var TABS=[['dash','Tableau de bord'],['requests','Demandes'],['clients','Clients'],['payments','Paiements'],['vehicles','Transport'],['partners','Partenaires'],['destinations','Destinations'],['service_categories','Catégories'],['offers','Offres'],['signatures','Signatures'],['signature_items','Contenu Signatures']];
 var cur='dash';
 
 // ---------- connexion ----------
 $('lf').addEventListener('submit',async function(e){
-  e.preventDefault();var b=$('lb'),er=$('lerr');b.disabled=true;er.hidden=true;
+  e.preventDefault();if(!sb)return;var b=$('lb'),er=$('lerr');b.disabled=true;er.hidden=true;
   var r=await sb.auth.signInWithPassword({email:$('le').value.trim(),password:$('lp').value});
   b.disabled=false;
   if(r.error){er.textContent='E-mail ou mot de passe incorrect.';er.hidden=false;return}
   start();
 });
 $('out').addEventListener('click',async function(){await sb.auth.signOut();location.reload()});
-async function start(){
-  var r=await sb.from('admins').select('email').maybeSingle();
-  if(r.error||!r.data){await sb.auth.signOut();var er=$('lerr');er.textContent='Ce compte n\'a pas accès à l\'administration.';er.hidden=false;$('login').hidden=false;$('app').hidden=true;return}
-  $('login').hidden=true;$('app').hidden=false;drawTabs();show('dash');
+// ---------- double authentification (TOTP) ----------
+function mfaPanel(o){
+  return new Promise(function(done){
+    var m=$('mfa'),er=h('p',{class:'err',hidden:true}),btn=h('button',{class:'btn',type:'submit',text:o.button});
+    var code=h('input',{type:'text',inputmode:'numeric',autocomplete:'one-time-code',maxlength:'6',pattern:'[0-9]{6}',placeholder:'Code à 6 chiffres',required:true,'aria-label':'Code à 6 chiffres'});
+    var kids=[h('h1',{text:o.title,style:'font-size:26px;text-align:center'}),h('p',{text:o.intro,style:'margin:0;color:var(--mute)'})];
+    if(o.extra)kids.push(o.extra);
+    kids.push(code,er,btn);
+    if(o.skip)kids.push(h('button',{class:'btn ghost',type:'button',text:'Plus tard',onclick:function(){m.hidden=true;done(true)}}));
+    var f=h('form',{onsubmit:async function(e){
+      e.preventDefault();btn.disabled=true;er.hidden=true;
+      var r=await o.verify(code.value.trim());btn.disabled=false;
+      if(r.error){er.textContent='Code incorrect ou expiré. Réessaie.';er.hidden=false;code.select();return}
+      m.hidden=true;done(true);
+    }},kids);
+    $('login').hidden=true;m.textContent='';m.append(f);m.hidden=false;code.focus();
+  });
 }
-sb.auth.getSession().then(function(r){if(r.data&&r.data.session)start()});
+async function mfaChallenge(){
+  var l=await sb.auth.mfa.listFactors();
+  var f=l.data&&l.data.totp&&l.data.totp[0];
+  if(!f)return true;
+  return mfaPanel({title:'Double authentification',intro:'Saisis le code à 6 chiffres de ton application d\'authentification.',button:'Valider',
+    verify:function(c){return sb.auth.mfa.challengeAndVerify({factorId:f.id,code:c})}});
+}
+async function mfaEnroll(){
+  var l=await sb.auth.mfa.listFactors();
+  var old=((l.data&&l.data.all)||[]).filter(function(x){return x.status==='unverified'});
+  for(var i=0;i<old.length;i++)await sb.auth.mfa.unenroll({factorId:old[i].id});
+  var e=await sb.auth.mfa.enroll({factorType:'totp',friendlyName:'EL Admin '+Date.now()});
+  if(e.error||!e.data||!e.data.totp)return true; // double authentification indisponible : on ne bloque pas
+  var qr=String(e.data.totp.qr_code||'');
+  var extra=h('div',{style:'display:grid;gap:8px;justify-items:center'},[
+    /^data:image\//.test(qr)?h('img',{src:qr,alt:'QR code à scanner',width:'180',height:'180',style:'background:#fff;padding:8px'}):null,
+    h('small',{text:'Ou saisis cette clé : '+e.data.totp.secret,style:'word-break:break-all;color:var(--mute);text-align:center'})]);
+  return mfaPanel({title:'Sécuriser ton compte',intro:'Scanne ce QR code avec une application d\'authentification (Google Authenticator, Microsoft Authenticator, Authy…), puis saisis le code affiché.',
+    extra:extra,button:'Activer',skip:true,
+    verify:function(c){return sb.auth.mfa.challengeAndVerify({factorId:e.data.id,code:c})}});
+}
+async function mfaGate(){
+  try{
+    var a=await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+    if(a.error||!a.data)return true;
+    if(a.data.currentLevel==='aal2')return true;
+    if(a.data.nextLevel==='aal2')return await mfaChallenge();
+    return await mfaEnroll();
+  }catch(e){return true}
+}
 
+async function start(){
+  if(!(await mfaGate()))return;
+  var r=await sb.from('admins').select('email').maybeSingle();
+  if(r.error||!r.data){await sb.auth.signOut();var er=$('lerr');er.textContent='Ce compte n\'a pas accès à l\'administration.';er.hidden=false;$('mfa').hidden=true;$('login').hidden=false;$('app').hidden=true;return}
+  $('mfa').hidden=true;$('login').hidden=true;$('app').hidden=false;drawTabs();show('dash');
+}
+if(sb)sb.auth.getSession().then(function(r){if(r.data&&r.data.session)start()});
+
+function authFail(err){
+  if(err&&(err.status===401||/JWT|expired/i.test(err.message||''))){sb.auth.signOut().then(function(){location.reload()});return true}
+  return false;
+}
 function drawTabs(){
   var t=$('tabs');t.textContent='';
   TABS.forEach(function(x){t.append(h('button',{class:x[0]===cur?'on':'',text:x[1],onclick:function(){show(x[0])}}))});
@@ -166,7 +244,8 @@ function show(k){cur=k;drawTabs();if(k==='dash')dash();else list(k)}
 async function dash(){
   var m=$('main');m.textContent='Chargement…';
   var a=await Promise.all([sb.from('requests').select('status,offer'),sb.from('clients').select('id,private_member,founder'),sb.from('payments').select('amount,currency,paid,client_id')]);
-  if(a[0].error||a[1].error||a[2].error){m.textContent='Impossible de charger les données.';return}
+  var fe=a[0].error||a[1].error||a[2].error;
+  if(fe){if(authFail(fe))return;m.textContent='Impossible de charger les données.';return}
   var rq=a[0].data,cl=a[1].data,pm=a[2].data;
   var nouv=rq.filter(function(r){return r.status==='nouvelle'}).length;
   var enc=rq.filter(function(r){return ['nouvelle','terminee','annulee'].indexOf(r.status)<0}).length;
@@ -190,6 +269,12 @@ async function dash(){
 function fmtCell(c,row){
   var v=row[c[0]],t=c[2];
   if(t==='date')return v?new Date(v).toLocaleDateString('fr-FR'):'';
+  if(t==='dest'){
+    if(!v||typeof v!=='object')return '';
+    var ds=Array.isArray(v.destinations)?v.destinations:[];
+    var txt=ds.slice(0,3).join(', ')+(ds.length>3?' …':'');
+    return txt||(v.autre_destination?'« '+v.autre_destination+' »':'');
+  }
   if(t==='bool')return v?'✓':'';
   if(t==='kind'){var k=KIND.filter(function(x){return x[0]===v})[0];return k?k[1]:(v||'')}
   if(t==='price')return row.price_on_request||v==null?'Sur demande':Number(v).toLocaleString('fr-FR')+' '+row.currency+' '+row.price_unit;
@@ -198,7 +283,7 @@ function fmtCell(c,row){
 async function list(k){
   var cfg=T[k],m=$('main');m.textContent='Chargement…';
   var r=await sb.from(k).select('*').order(cfg.order,{ascending:cfg.asc});
-  if(r.error){m.textContent='Erreur : '+r.error.message+' (la table existe-t-elle ? relance le fichier SQL correspondant).';return}
+  if(r.error){if(authFail(r.error))return;m.textContent='Erreur : '+r.error.message+' (la table existe-t-elle ? relance le fichier SQL correspondant).';return}
   m.textContent='';
   m.append(h('div',{class:'bar'},[h('h2',{text:cfg.label+' ('+r.data.length+')'}),h('button',{class:'btn',text:'+ Ajouter',onclick:function(){edit(k,null)}})]));
   if(!r.data.length){m.append(h('div',{class:'scroll'},[h('div',{class:'empty',text:'Rien ici pour l\'instant.'})]));return}
@@ -227,8 +312,21 @@ function shrink(f){return new Promise(function(res){
     URL.revokeObjectURL(u);c.toBlob(function(b){res(b||f)},'image/jpeg',.85)};
   img.onerror=function(){res(f)};img.src=u})}
 
+function cfgBlock(c){
+  var box=h('div',{class:'cfgbox'},[h('div',{class:'cfgbox-t',text:'CONFIGURATION DU CLIENT'})]);
+  if(!c||typeof c!=='object'||Array.isArray(c))return null;
+  var list=function(x){return Array.isArray(x)?x.map(String):[]};
+  var d=list(c.destinations); if(c.autre_destination)d.push('« '+String(c.autre_destination)+' »');
+  var st=list(c.style); if(c.style_conseil)st.push('Souhaite être conseillé');
+  var rows=[['Destination',d],['Voyage',list(c.voyage)],['Conciergerie',list(c.conciergerie)],['Privé',list(c.prive)],['Expériences',list(c.experiences)],['Style',st],['Niveau',c.niveau?[String(c.niveau)]:[]]];
+  if(c.conseil_demande)rows.push(['Conseil',['Le client souhaite être conseillé par EL SIGNATURE']]);
+  rows.forEach(function(r){if(r[1].length)box.append(h('div',{class:'cfgbox-r'},[h('b',{text:r[0]}),h('span',{text:r[1].join(' · ')})]))});
+  if(box.children.length===1)box.append(h('div',{class:'cfgbox-r'},[h('span',{text:'Aucune sélection enregistrée.'})]));
+  return box;
+}
+
 function photosField(arr){
-  var list=arr.slice(),box=h('div'),grid=h('div',{class:'thumbs'}),msg=h('small',{style:'color:var(--mute)'});
+  var list=arr.filter(function(u){return /^https:\/\//.test(u)}),box=h('div'),grid=h('div',{class:'thumbs'}),msg=h('small',{style:'color:var(--mute)'});
   var inp=h('input',{type:'file',accept:'image/*',multiple:true});
   function draw(){grid.textContent='';list.forEach(function(u,i){
     var d=h('div',{class:'th'},[h('img',{src:u,alt:''}),h('button',{type:'button',title:'Supprimer',text:'×',onclick:function(){list.splice(i,1);draw()}})]);
@@ -262,6 +360,8 @@ async function edit(k,row){
     else if(type==='date'){node=h('input',{type:'date'});node.value=v||'';get=function(n){return function(){return n.value||null}}(node)}
     else if(type==='tags'){node=h('input',{type:'text'});node.value=(v||[]).join(', ');get=function(n){return function(){return n.value.split(',').map(function(s){return s.trim()}).filter(Boolean)}}(node)}
     else if(type==='photos'){var p=photosField(v||[]);node=p.node;get=p.get}
+    else if(type==='image'){var pi=photosField(v?[v]:[]);node=pi.node;get=function(g,orig){return function(){return g()[0]||(orig&&!/^https:\/\//.test(orig)?orig:null)}}(pi.get,v)}
+    else if(type==='config'){var cb=cfgBlock(v);if(cb)kids.push(cb);continue}
     else if(type==='select'||type==='lookup'){
       var o=opts;
       if(type==='lookup'){var lr=await sb.from(opts[0]).select('id,'+opts[1]).order(opts[1]);o=(lr.data||[]).map(function(x){return [x.id,x[opts[1]]]})}
@@ -280,7 +380,8 @@ async function edit(k,row){
     if(d.error){msg.textContent=d.error.message;msg.hidden=false;return}close();toast('Supprimé');list(k)}}));
   var form=h('form',{class:'sheet',onsubmit:async function(e){
     e.preventDefault();save.disabled=true;msg.hidden=true;
-    var payload={};cfg.fields.forEach(function(f){payload[f[0]]=inputs[f[0]]()});
+    var payload={};cfg.fields.forEach(function(f){if(inputs[f[0]])payload[f[0]]=inputs[f[0]]()});
+    if(cfg.slugFrom){payload.slug=slugify(payload.slug||payload[cfg.slugFrom])||('element-'+Date.now().toString(36))}
     var r=row?await sb.from(k).update(payload).eq('id',row.id):await sb.from(k).insert(payload);
     save.disabled=false;
     if(r.error){msg.textContent='Erreur : '+r.error.message;msg.hidden=false;return}

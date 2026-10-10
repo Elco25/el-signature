@@ -4,10 +4,16 @@ var SB_KEY='sb_publishable_Pf6tTcvMceb6agyh_b8weg_X-sj-BbX';
 var $=function(id){return document.getElementById(id)};
 function el(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n}
 var sb=null;try{sb=supabase.createClient(SB_URL,SB_KEY)}catch(e){}
+window.EL_SB=sb;
 
 /* menu mobile */
 var bg=$('burger'),lk=$('links');
 if(bg&&lk)bg.addEventListener('click',function(){var o=lk.classList.toggle('open');bg.setAttribute('aria-expanded',o?'true':'false')});
+if(bg&&lk){
+  var closeMenu=function(){lk.classList.remove('open');bg.setAttribute('aria-expanded','false')};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lk.classList.contains('open')){closeMenu();bg.focus()}});
+  lk.addEventListener('click',function(e){if(e.target.tagName==='A')closeMenu()});
+}
 
 /* application installable */
 if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});
@@ -19,13 +25,16 @@ var note=$('iosnote');if(note&&ios&&!stand)note.hidden=false;
 
 /* formulaire de contact */
 var form=$('f');
+var t0=Date.now();
 if(form){
   var qs=new URLSearchParams(location.search),o=qs.get('offre'),v=qs.get('vehicule');
   if(o&&$('svc'))$('svc').value=o;
   if(v&&$('fmsg'))$('fmsg').value='Véhicule souhaité : '+v+'\n';
+  var w=qs.get('souhait');
+  if(w&&$('fmsg')&&!v)$('fmsg').value='Sélection souhaitée : '+w.slice(0,180)+'\n';
   form.addEventListener('submit',async function(e){
     e.preventDefault();
-    if($('hp').value)return;
+    if($('hp').value||Date.now()-t0<2000){form.style.display='none';$('ok').style.display='block';return}
     var btn=$('fbtn'),er=$('err');
     er.style.display='none';btn.disabled=true;btn.textContent='Envoi en cours…';
     var ok=false;
@@ -62,7 +71,7 @@ async function loadVehicles(){
     var b=el('a','btn','Faire une demande de transport');b.href='/contact.html?offre=Transport';box.appendChild(b);return;
   }
   data.forEach(function(v){
-    var card=el('div','veh'),ph=el('div','vph'),photos=v.photos||[];
+    var card=el('div','veh'),ph=el('div','vph'),photos=(v.photos||[]).filter(function(u){return /^https:\/\//.test(u)});
     if(photos.length){
       var main=el('img','main');main.src=photos[0];main.alt=v.name;main.loading='lazy';ph.appendChild(main);
       if(photos.length>1){

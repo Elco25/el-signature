@@ -6,6 +6,7 @@
 <title>Voyage sur mesure — EL SIGNATURE</title>
 <meta name="description" content="Signature Journey : un voyage pensé pour vous, de la première idée au dernier détail. Dès 250 €.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -23,12 +24,13 @@
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
+<a class="skip" href="#contenu">Aller au contenu</a>
 <header class="hero sm">
 <div class="wrap" style="width:100%">
 <nav>
 <a class="brand" href="/"><img class="mk" src="/logo-mark.png" alt="" width="112" height="44"><span><b>EL SIGNATURE</b><small>CONCIERGERIE PRIVÉE &amp; DÉCOUVERTE</small></span></a>
 <div class="links" id="links"><a href="/voyages.html" aria-current="page">Voyages</a><a href="/experiences.html">Expériences</a><a href="/conciergerie.html">Conciergerie</a><a href="/transport.html">Transport</a><a href="/private.html">Private</a></div>
-<a class="btn navcta" href="/contact.html">Commencer une conversation</a>
+<a class="btn navcta" href="/signature.html">Construisez votre signature</a>
 <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="links"><span></span><span></span><span></span></button>
 </nav>
 <div class="hero-body"><div>
@@ -39,6 +41,7 @@
 </div>
 </header>
 
+<main id="contenu">
 <section id="journey" class="offer"><div class="wrap ogrid">
 <div>
 <p>Dites-nous où vous souhaitez aller, comment vous aimez voyager et ce qui compte pour vous.</p>
@@ -51,6 +54,20 @@
 <h3>FRAIS DE CONCEPTION</h3>
 <div class="price"><div><span>Voyage simple</span><b>250 €</b></div><div><span>Voyage premium</span><b>400 €</b></div><div><span>Voyage complexe ou multi-destination</span><b>600 € et plus</b></div></div>
 <p class="note">Les prestations réservées sont facturées séparément.</p>
+</div>
+</div></section>
+
+<section id="dfeat-sec" hidden><div class="wrap">
+<div class="head"><h2>Destinations à la une</h2><p><a class="btn line-dark" href="/destinations.html">Toutes les destinations</a></p></div>
+<div id="dfeat" class="vgrid"></div>
+</div></section>
+
+<section><div class="wrap">
+<div class="head"><h2>Les trois moments d'un voyage</h2></div>
+<div class="band">
+<figure class="ph"><img src="/images/13_route.jpg" alt="La route" loading="lazy" width="1600" height="1000"><figcaption>La route</figcaption></figure>
+<figure class="ph"><img src="/images/14_refuge.jpg" alt="Le refuge" loading="lazy" width="1600" height="1000"><figcaption>Le refuge</figcaption></figure>
+<figure class="ph"><img src="/images/15_matin.jpg" alt="Le matin" loading="lazy" width="1600" height="1000"><figcaption>Le matin</figcaption></figure>
 </div>
 </div></section>
 
@@ -71,10 +88,12 @@
 <div><b>Demande urgente</b><br>Un supplément peut s'appliquer</div>
 </div>
 </div></section>
+</main>
 
 <footer><div class="wrap fgrid">
 <span>© EL SIGNATURE. Conciergerie privée &amp; découverte.</span>
-<div class="flinks"><a href="/tarifs.html">Tarifs</a><a href="/contact.html">Contact</a><a href="https://wa.me/261381526116?text=Bonjour%20EL%20SIGNATURE%2C%20j%27aimerais%20vous%20parler%20d%27un%20projet." target="_blank" rel="noopener">WhatsApp</a></div>
+<div class="flinks"><a href="/madagascar.html">Madagascar</a><a href="/tarifs.html">Tarifs</a><a href="/contact.html">Contact</a><a href="https://wa.me/261381526116?text=Bonjour%20EL%20SIGNATURE%2C%20j%27aimerais%20vous%20parler%20d%27un%20projet." target="_blank" rel="noopener">WhatsApp</a></div>
+<div class="flinks legal"><a href="/mentions-legales.html">Mentions légales</a><a href="/confidentialite.html">Confidentialité</a><a href="/conditions.html">Conditions de vente</a></div>
 <a href="#" id="inst" hidden>Installer l'application</a><span id="iosnote" hidden>Sur iPhone : Partager, puis « Sur l'écran d'accueil ».</span>
 </div></footer>
 
@@ -82,6 +101,8 @@
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.9 7L4 20l1.5-4A8 8 0 1 1 20 11.5z"/><path d="M9 9.2c.3 2.4 2.4 4.5 4.8 4.8l1-1.2-1.8-.9-.7.7a4 4 0 0 1-1.9-1.9l.7-.7-.9-1.8z" fill="currentColor" stroke="none"/></svg>
 <span>WhatsApp</span></a>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="/site.js"></script>
+<script src="/catalogue.js"></script>
 </body>
 </html>
