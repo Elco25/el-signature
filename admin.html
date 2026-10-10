@@ -33,6 +33,24 @@ textarea{resize:vertical}
 .tabs{display:flex;gap:4px;overflow-x:auto;flex:1}
 .tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:8px 12px;cursor:pointer;white-space:nowrap;color:var(--mute)}
 .tabs button.on{color:var(--ink);border-color:var(--bronze)}
+.tabs .grp{align-self:center;padding:0 6px 0 14px;margin-left:8px;border-left:1px solid var(--line);font-size:11px;letter-spacing:.2em;color:var(--bronze);white-space:nowrap}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.filters input,.filters select{width:auto;min-width:150px;flex:1 1 150px;max-width:260px}
+.filters input[type=search]{flex:2 1 220px;max-width:340px}
+.badge{display:inline-block;padding:2px 10px;font-size:12px;letter-spacing:.08em;border:1px solid var(--line);color:var(--mute)}
+.badge.on{border-color:var(--bronze);color:var(--bronze)}
+.fiche h3{font:400 13px Montserrat,sans-serif;letter-spacing:.18em;color:var(--bronze);margin:10px 0 6px;border-top:1px solid var(--line);padding-top:14px}
+.fiche dl{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;margin:0}
+.fiche dt{color:var(--mute);font-size:13px}.fiche dd{margin:0;word-break:break-word}
+.fiche p{margin:0 0 8px;white-space:pre-wrap}
+.fiche .priv{border:1px dashed var(--bronze);padding:10px 14px;background:var(--sand)}
+.fiche .gal{display:flex;flex-wrap:wrap;gap:8px}.fiche .gal img{width:104px;height:78px;object-fit:cover}
+.subform{display:grid;gap:10px;border:1px dashed var(--bronze);padding:14px;background:var(--sand)}
+.subform .t{font-size:12px;letter-spacing:.16em;color:var(--bronze)}
+.checks{display:grid;gap:6px;border:1px solid var(--line);padding:10px 12px;background:var(--card)}
+.checks label.chk{font-size:14px}
+.more{display:block;margin:16px auto 0}
+@media(max-width:560px){.fiche dl{grid-template-columns:1fr}.filters input,.filters select{max-width:none}}
 main{max-width:1180px;margin:0 auto;padding:24px 20px 80px}
 .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
 .bar h2{font-size:28px}
@@ -141,18 +159,19 @@ payments:{label:'Paiements',order:'created_at',asc:false,def:{currency:'EUR',kin
 vehicles:{label:'Transport',order:'sort_order',asc:true,def:{with_driver:true,active:true,price_unit:'par jour',currency:'EUR',sort_order:0},
   cols:[['name','Véhicule'],['category','Catégorie'],['price','Prix','price'],['active','Visible','bool']],
   fields:[['name','Nom du véhicule','text',1],['category','Catégorie (Berline, SUV, 4x4, Van…)','text'],['seats','Nombre de places','number'],['luggage','Nombre de bagages','number'],['with_driver','Avec chauffeur','bool'],['price','Prix','number'],['price_unit','Unité du prix','select',1,['par trajet','par heure','par jour']],['currency','Devise','select',1,CUR],['price_on_request','Afficher « Prix sur demande »','bool'],['description','Description','textarea'],['features','Équipements (séparés par des virgules)','tags'],['photos','Photos','photos'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
-partners:{label:'Partenaires',order:'created_at',asc:false,def:{},
-  cols:[['name','Nom'],['category','Catégorie'],['rating','Note /5']],
-  fields:[['name','Nom','text',1],['category','Catégorie (hôtel, guide, restaurant…)','text'],['contact','Contact','text'],['rating','Note de 1 à 5','number'],['notes','Évaluation, remarques','textarea']]},
-destinations:{label:'Destinations',order:'sort_order',asc:true,slugFrom:'name',def:{active:true,featured:false,sort_order:0},
+partners:{label:'Partenaires',order:'created_at',asc:false,def:{active:true},search:['name','partner_type'],
+  cols:[['name','Partenaire'],['partner_type','Type'],['rating','Note /5'],['active','Actif','bool']],
+  after:'partnerExtras',
+  fields:[['name','Nom','text',1],['partner_type','Type (villa, hôtel, chauffeur, yacht, restaurant…)','text'],['short_description','Résumé','textarea'],['description','Description','textarea'],['website_url','Site web (https://…)','text'],['phone','Téléphone','text'],['email','E-mail','email'],['__pdest','Destinations couvertes','pdest'],['internal_contact','Contact interne — PRIVÉ, jamais affiché sur le site','text'],['internal_notes','Notes internes — PRIVÉES, jamais affichées sur le site','textarea'],['category','Catégorie (ancien champ)','text'],['contact','Contact (ancien champ)','text'],['rating','Note de 1 à 5','number'],['notes','Évaluation, remarques (ancien champ)','textarea'],['active','Partenaire actif','bool']]},
+destinations:{label:'Destinations',order:'sort_order',asc:true,slugFrom:'name',guard:{col:'destination_id',what:'cette destination'},def:{active:true,featured:false,sort_order:0},
   cols:[['name','Destination'],['country','Pays'],['featured','À la une','bool'],['active','Visible','bool']],
   fields:[['name','Nom','text',1],['slug','Identifiant web (laisser vide = automatique)','text'],['country','Pays','text'],['region','Région','text'],['short_description','Résumé (500 caractères max)','textarea'],['description','Description','textarea'],['image_url','Photo','image'],['featured','Mettre à la une','bool'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
-service_categories:{label:'Catégories',order:'sort_order',asc:true,slugFrom:'name',def:{active:true,sort_order:0},
+service_categories:{label:'Catégories',order:'sort_order',asc:true,slugFrom:'name',guard:{col:'service_category_id',what:'cette catégorie'},def:{active:true,sort_order:0},
   cols:[['name','Catégorie'],['active','Visible','bool']],
   fields:[['name','Nom (villa, hôtel, chauffeur, yacht…)','text',1],['slug','Identifiant web (laisser vide = automatique)','text'],['description','Description','textarea'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
-offers:{label:'Offres',order:'sort_order',asc:true,slugFrom:'title',def:{active:true,featured:false,sort_order:0,availability_status:'on_request',public_price_currency:'EUR',public_price_type:'on_request'},
+offers:{label:'Offres',order:'sort_order',asc:true,slugFrom:'title',after:'offerExtras',def:{active:true,featured:false,sort_order:0,availability_status:'on_request',public_price_currency:'EUR',public_price_type:'on_request'},
   cols:[['title','Offre'],['availability_status','Disponibilité'],['featured','À la une','bool'],['active','Visible','bool']],
-  fields:[['title','Titre','text',1],['slug','Identifiant web (laisser vide = automatique)','text'],['destination_id','Destination','lookup',1,['destinations','name']],['service_category_id','Catégorie','lookup',1,['service_categories','name']],['short_description','Résumé (500 caractères max)','textarea'],['description','Description','textarea'],['location','Lieu','text'],['capacity','Capacité (personnes)','number'],['features','Points forts (séparés par des virgules)','tags'],['availability_status','Disponibilité','select',1,[['available','Disponible'],['on_request','Sur demande'],['unavailable','Indisponible']]],['public_label','Mention affichée (ex. « Sur demande »)','text'],['public_price_type','Type de prix affiché','select',0,[['on_request','Sur demande'],['from','À partir de'],['fixed','Prix fixe'],['per_night','Par nuit'],['per_person','Par personne']]],['public_price','Prix affiché (indicatif)','number'],['public_price_currency','Devise','select',0,CUR],['main_image_url','Photo principale','image'],['featured','Mettre à la une','bool'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
+  fields:[['title','Titre','text',1],['slug','Identifiant web (laisser vide = automatique)','text'],['destination_id','Destination','lookup',1,['destinations','name']],['service_category_id','Catégorie','lookup',1,['service_categories','name']],['short_description','Résumé (500 caractères max)','textarea'],['description','Description','textarea'],['location','Lieu','text'],['capacity','Capacité (personnes)','number'],['features','Points forts (séparés par des virgules)','tags'],['availability_status','Disponibilité','select',1,[['available','Disponible'],['on_request','Sur demande'],['unavailable','Indisponible']]],['public_label','Mention affichée (ex. « Sur demande »)','text'],['public_price_type','Type de prix affiché','select',0,[['on_request','Sur demande'],['from','À partir de'],['fixed','Prix fixe'],['per_night','Par nuit'],['per_person','Par personne']]],['public_price','Prix affiché (indicatif)','number'],['public_price_currency','Devise','select',0,CUR],['main_image_url','Photo principale','image'],['__imgs','Images supplémentaires','oimgs'],['__partner','Partenaire (privé, jamais affiché sur le site)','partnerlink'],['__fin','Informations financières — PRIVÉ ADMIN','finance'],['featured','Mettre à la une','bool'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
 signatures:{label:'Signatures',order:'sort_order',asc:true,slugFrom:'title',def:{active:true,featured:false,sort_order:0},
   cols:[['title','Signature'],['duration_label','Durée'],['featured','À la une','bool'],['active','Visible','bool']],
   fields:[['title','Titre','text',1],['slug','Identifiant web (laisser vide = automatique)','text'],['subtitle','Sous-titre','text'],['destination_id','Destination','lookup',0,['destinations','name']],['duration_label','Durée (ex. 7 jours)','text'],['style','Style','text'],['description','Description','textarea'],['hero_image_url','Photo principale','image'],['featured','Mettre à la une','bool'],['active','Visible sur le site','bool'],['sort_order','Ordre d\'affichage (0 = en premier)','number']]},
@@ -161,7 +180,7 @@ signature_items:{label:'Contenu des Signatures',order:'sort_order',asc:true,def:
   fields:[['signature_id','Signature','lookup',1,['signatures','title']],['offer_id','Offre','lookup',1,['offers','title']],['section_title','Titre de section (ex. Jour 1, Hébergement)','text'],['description_override','Texte personnalisé','textarea'],['included','Inclus','bool'],['sort_order','Ordre (0 = en premier)','number']]}
 };
 function slugify(t){return String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
-var TABS=[['dash','Tableau de bord'],['requests','Demandes'],['clients','Clients'],['payments','Paiements'],['vehicles','Transport'],['partners','Partenaires'],['destinations','Destinations'],['service_categories','Catégories'],['offers','Offres'],['signatures','Signatures'],['signature_items','Contenu Signatures']];
+var TABS=[['dash','Tableau de bord'],['requests','Demandes'],['clients','Clients'],['payments','Paiements'],['vehicles','Transport'],['__cat','CATALOGUE'],['destinations','Destinations'],['service_categories','Catégories'],['partners','Partenaires'],['offers','Offres'],['signatures','Signatures'],['signature_items','Contenu Signatures']];
 var cur='dash';
 
 // ---------- connexion ----------
@@ -236,7 +255,7 @@ function authFail(err){
 }
 function drawTabs(){
   var t=$('tabs');t.textContent='';
-  TABS.forEach(function(x){t.append(h('button',{class:x[0]===cur?'on':'',text:x[1],onclick:function(){show(x[0])}}))});
+  TABS.forEach(function(x){if(x[0]==='__cat'){t.append(h('span',{class:'grp',text:x[1]}));return}t.append(h('button',{class:x[0]===cur?'on':'',text:x[1],onclick:function(){show(x[0])}}))});
 }
 function show(k){cur=k;drawTabs();if(k==='dash')dash();else list(k)}
 
@@ -281,6 +300,7 @@ function fmtCell(c,row){
   return v==null?'':String(v);
 }
 async function list(k){
+  if(k==='offers')return listOffers();
   var cfg=T[k],m=$('main');m.textContent='Chargement…';
   var r=await sb.from(k).select('*').order(cfg.order,{ascending:cfg.asc});
   if(r.error){if(authFail(r.error))return;m.textContent='Erreur : '+r.error.message+' (la table existe-t-elle ? relance le fichier SQL correspondant).';return}
@@ -288,8 +308,23 @@ async function list(k){
   m.append(h('div',{class:'bar'},[h('h2',{text:cfg.label+' ('+r.data.length+')'}),h('button',{class:'btn',text:'+ Ajouter',onclick:function(){edit(k,null)}})]));
   if(!r.data.length){m.append(h('div',{class:'scroll'},[h('div',{class:'empty',text:'Rien ici pour l\'instant.'})]));return}
   var tr=h('tr',{},cfg.cols.map(function(c){return h('th',{text:c[1].toUpperCase()})}));
-  var body=h('tbody');
-  r.data.forEach(function(row){
+  var body=h('tbody'),rows=r.data,q='',st='';
+  if(cfg.search){
+    var qi=h('input',{type:'search',placeholder:'Rechercher…','aria-label':'Rechercher'}),si=h('select',{'aria-label':'Statut'},[h('option',{value:'',text:'Tous les statuts'}),h('option',{value:'1',text:'Actifs'}),h('option',{value:'0',text:'Inactifs'})]);
+    var go=function(){q=qi.value.trim().toLowerCase();st=si.value;draw()};qi.addEventListener('input',go);si.addEventListener('change',go);
+    m.append(h('div',{class:'filters'},[qi,si]));
+  }
+  var wrap=h('div',{class:'scroll'});
+  function draw(){
+    body.textContent='';
+    var n=0;
+    rows.forEach(function(row){
+      if(q&&!cfg.search.some(function(c){return String(row[c]||'').toLowerCase().indexOf(q)>-1}))return;
+      if(st==='1'&&!row.active)return;if(st==='0'&&row.active)return;n++;
+      addRow(row)});
+    if(!n)body.append(h('tr',{},[h('td',{colspan:String(cfg.cols.length),class:'empty',text:'Aucun résultat.'})]));
+  }
+  function addRow(row){
     var tds=cfg.cols.map(function(c){
       if(c[2]==='status'){
         var s=h('select',{onclick:function(e){e.stopPropagation()},onchange:async function(){
@@ -300,8 +335,9 @@ async function list(k){
       return h('td',{text:fmtCell(c,row)});
     });
     body.append(h('tr',{class:'row',onclick:function(){edit(k,row)}},tds));
-  });
-  m.append(h('div',{class:'scroll'},[h('table',{},[h('thead',{},[tr]),body])]));
+  }
+  draw();
+  wrap.append(h('table',{},[h('thead',{},[tr]),body]));m.append(wrap);
 }
 
 // ---------- formulaire ----------
@@ -325,12 +361,12 @@ function cfgBlock(c){
   return box;
 }
 
-function photosField(arr){
+function photosField(arr,plain){
   var list=arr.filter(function(u){return /^https:\/\//.test(u)}),box=h('div'),grid=h('div',{class:'thumbs'}),msg=h('small',{style:'color:var(--mute)'});
   var inp=h('input',{type:'file',accept:'image/*',multiple:true});
   function draw(){grid.textContent='';list.forEach(function(u,i){
     var d=h('div',{class:'th'},[h('img',{src:u,alt:''}),h('button',{type:'button',title:'Supprimer',text:'×',onclick:function(){list.splice(i,1);draw()}})]);
-    if(i===0)d.append(h('span',{class:'cv',text:'Principale'}));
+    if(plain){}else if(i===0)d.append(h('span',{class:'cv',text:'Principale'}));
     else d.append(h('button',{type:'button',class:'cov',title:'Mettre en première',text:'★',onclick:function(){list.unshift(list.splice(i,1)[0]);draw()}}));
     grid.append(d)})}
   inp.addEventListener('change',async function(){
@@ -351,7 +387,7 @@ function photosField(arr){
 }
 
 async function edit(k,row){
-  var cfg=T[k],vals=Object.assign({},cfg.def,row||{}),inputs={},kids=[];
+  var cfg=T[k],vals=Object.assign({},cfg.def,row||{}),inputs={},kids=[],extras={};
   for(var i=0;i<cfg.fields.length;i++){
     var f=cfg.fields[i],key=f[0],type=f[2],req=f[3],opts=f[4],v=vals[key],node,get;
     if(type==='textarea'){node=h('textarea',{rows:4});node.value=v||'';get=function(n){return function(){return n.value.trim()||null}}(node)}
@@ -362,6 +398,8 @@ async function edit(k,row){
     else if(type==='photos'){var p=photosField(v||[]);node=p.node;get=p.get}
     else if(type==='image'){var pi=photosField(v?[v]:[]);node=pi.node;get=function(g,orig){return function(){return g()[0]||(orig&&!/^https:\/\//.test(orig)?orig:null)}}(pi.get,v)}
     else if(type==='config'){var cb=cfgBlock(v);if(cb)kids.push(cb);continue}
+    else if(type==='pdest'||type==='partnerlink'||type==='finance'||type==='oimgs'){
+      var ex=await extraField(type,row,f);extras[key]=ex;kids.push(ex.node);continue}
     else if(type==='select'||type==='lookup'){
       var o=opts;
       if(type==='lookup'){var lr=await sb.from(opts[0]).select('id,'+opts[1]).order(opts[1]);o=(lr.data||[]).map(function(x){return [x.id,x[opts[1]]]})}
@@ -382,12 +420,168 @@ async function edit(k,row){
     e.preventDefault();save.disabled=true;msg.hidden=true;
     var payload={};cfg.fields.forEach(function(f){if(inputs[f[0]])payload[f[0]]=inputs[f[0]]()});
     if(cfg.slugFrom){payload.slug=slugify(payload.slug||payload[cfg.slugFrom])||('element-'+Date.now().toString(36))}
-    var r=row?await sb.from(k).update(payload).eq('id',row.id):await sb.from(k).insert(payload);
+    if(cfg.guard&&row&&row.active&&payload.active===false){
+      var cn=await sb.from('offers').select('id',{count:'exact',head:true}).eq(cfg.guard.col,row.id).eq('active',true);
+      if(cn.count>0&&!confirm(cn.count+' offre(s) active(s) utilisent '+cfg.guard.what+'. Si vous la désactivez, elles ne s\'afficheront plus sur le site. Désactiver quand même ?')){save.disabled=false;return}
+    }
+    var r,rid=row?row.id:null;
+    if(row)r=await sb.from(k).update(payload).eq('id',row.id);
+    else if(cfg.after){r=await sb.from(k).insert(payload).select('id').single();if(!r.error)rid=r.data.id}
+    else r=await sb.from(k).insert(payload);
+    if(r.error){save.disabled=false;msg.textContent='Erreur : '+r.error.message;msg.hidden=false;return}
+    if(cfg.after){
+      var ae=await AFTER[cfg.after](rid,extras);
+      if(ae){save.disabled=false;msg.textContent='Enregistré, mais : '+ae+' Corrigez puis enregistrez à nouveau.';msg.hidden=false;if(!row)row={id:rid};return}
+    }
     save.disabled=false;
-    if(r.error){msg.textContent='Erreur : '+r.error.message;msg.hidden=false;return}
     close();toast('Enregistré');list(k);}},
     [h('h2',{text:(row?'Modifier':'Ajouter')+' — '+cfg.label,style:'font-size:24px'})].concat(kids,[msg,acts]));
   var md=$('modal');md.textContent='';md.className='modal';md.hidden=false;md.append(form);
+}
+
+// ---------- catalogue : champs liés (partenaire, finances, images, destinations) ----------
+var COMM=[['percentage','Pourcentage (%)'],['fixed','Montant fixe']];
+function selectNode(opts,val,empty){return h('select',{},[empty?h('option',{value:'',text:empty}):null].concat(opts.map(function(o){return h('option',{value:o[0],text:o[1],selected:String(o[0])===String(val)})})))}
+async function extraField(type,row,f){
+  var id=row&&row.id,label=f[1];
+  if(type==='partnerlink'){
+    var a=await Promise.all([sb.from('partners').select('id,name,active').order('name'),id?sb.from('offer_partner_links').select('partner_id').eq('offer_id',id).maybeSingle():Promise.resolve({data:null})]);
+    var sel=selectNode((a[0].data||[]).map(function(p){return [p.id,p.name+(p.active?'':' (inactif)')]}),a[1].data&&a[1].data.partner_id,'— Aucun partenaire —');
+    return{node:h('label',{},[label,sel]),get:function(){return sel.value||null}};
+  }
+  if(type==='finance'){
+    var fr=id?await sb.from('offer_financials').select('*').eq('offer_id',id).maybeSingle():{data:null},d=fr.data||{};
+    var cost=h('input',{type:'number',step:'any',min:'0'}),cur=selectNode(CUR.map(function(c){return [c,c]}),d.cost_currency||'EUR'),
+        ct=selectNode(COMM,d.commission_type,'— Aucune —'),cv=h('input',{type:'number',step:'any',min:'0'}),nt=h('textarea',{rows:3});
+    cost.value=d.partner_cost==null?'':d.partner_cost;cv.value=d.commission_value==null?'':d.commission_value;nt.value=d.internal_notes||'';
+    var node=h('div',{class:'subform'},[h('div',{class:'t',text:label.toUpperCase()}),h('small',{text:'Visible uniquement par l\'administration. Jamais affiché sur le site.',style:'color:var(--mute)'}),
+      h('label',{},['Coût partenaire',cost]),h('label',{},['Devise',cur]),h('label',{},['Type de commission',ct]),h('label',{},['Valeur de commission (% ou montant)',cv]),h('label',{},['Notes internes',nt])]);
+    return{node:node,hadRow:!!fr.data,get:function(){
+      var o={partner_cost:cost.value===''?null:Number(cost.value),cost_currency:cur.value,commission_type:ct.value||null,commission_value:cv.value===''?null:Number(cv.value),internal_notes:nt.value.trim()||null};
+      var empty=o.partner_cost==null&&!o.commission_type&&o.commission_value==null&&!o.internal_notes;
+      return empty?null:o}};
+  }
+  if(type==='oimgs'){
+    var ir=id?await sb.from('offer_images').select('id,image_url,sort_order').eq('offer_id',id).order('sort_order'):{data:[]};
+    var rows=ir.data||[],pf=photosField(rows.map(function(x){return x.image_url}),true);
+    return{node:h('label',{},[label+' (galerie de la page de l\'offre)',pf.node]),rows:rows,get:pf.get};
+  }
+  if(type==='pdest'){
+    var b=await Promise.all([sb.from('destinations').select('id,name').order('name'),id?sb.from('partner_destinations').select('destination_id').eq('partner_id',id):Promise.resolve({data:[]})]);
+    var have={};(b[1].data||[]).forEach(function(x){have[x.destination_id]=1});
+    var boxes=(b[0].data||[]).map(function(dd){var c=h('input',{type:'checkbox',checked:!!have[dd.id]});c.dataset.id=dd.id;return h('label',{class:'chk'},[c,dd.name])});
+    var box=boxes.length?h('div',{class:'checks'},boxes):h('div',{class:'checks',text:'Créez d\'abord une destination.'});
+    return{node:h('div',{},[h('div',{text:label,style:'font-size:13px;color:var(--mute);margin-bottom:5px'}),box]),had:have,get:function(){
+      return Array.prototype.slice.call(box.querySelectorAll('input')).filter(function(c){return c.checked}).map(function(c){return c.dataset.id})}};
+  }
+}
+var AFTER={
+  async offerExtras(id,ex){
+    var errs=[],r;
+    if(ex.__partner){var pid=ex.__partner.get();
+      r=pid?await sb.from('offer_partner_links').upsert({offer_id:id,partner_id:pid},{onConflict:'offer_id'}):await sb.from('offer_partner_links').delete().eq('offer_id',id);
+      if(r.error)errs.push('partenaire ('+r.error.message+')')}
+    if(ex.__fin){var fo=ex.__fin.get();
+      if(fo){fo.offer_id=id;r=await sb.from('offer_financials').upsert(fo,{onConflict:'offer_id'});if(r.error)errs.push('finances ('+r.error.message+')')}
+      else if(ex.__fin.hadRow){r=await sb.from('offer_financials').delete().eq('offer_id',id);if(r.error)errs.push('finances ('+r.error.message+')')}}
+    if(ex.__imgs){var urls=ex.__imgs.get(),old=ex.__imgs.rows||[],byUrl={};
+      old.forEach(function(o){byUrl[o.image_url]=o});
+      for(var i=0;i<old.length;i++){if(urls.indexOf(old[i].image_url)<0){r=await sb.from('offer_images').delete().eq('id',old[i].id);if(r.error)errs.push('images ('+r.error.message+')')}}
+      for(var j=0;j<urls.length;j++){
+        r=byUrl[urls[j]]?await sb.from('offer_images').update({sort_order:j}).eq('id',byUrl[urls[j]].id):await sb.from('offer_images').insert({offer_id:id,image_url:urls[j],sort_order:j});
+        if(r.error)errs.push('images ('+r.error.message+')')}
+      var rf=await sb.from('offer_images').select('id,image_url,sort_order').eq('offer_id',id).order('sort_order');ex.__imgs.rows=rf.data||[]}
+    return errs.length?errs[0]+'.':null;
+  },
+  async partnerExtras(id,ex){
+    if(!ex.__pdest)return null;
+    var want=ex.__pdest.get(),have=Object.keys(ex.__pdest.had||{}),r;
+    var rm=have.filter(function(x){return want.indexOf(x)<0}),add=want.filter(function(x){return have.indexOf(x)<0});
+    if(rm.length){r=await sb.from('partner_destinations').delete().eq('partner_id',id).in('destination_id',rm);if(r.error)return 'destinations ('+r.error.message+').'}
+    if(add.length){r=await sb.from('partner_destinations').insert(add.map(function(d){return{partner_id:id,destination_id:d}}));if(r.error)return 'destinations ('+r.error.message+').'}
+    ex.__pdest.had={};want.forEach(function(x){ex.__pdest.had[x]=1});
+    return null;
+  }
+};
+
+// ---------- catalogue : offres (liste filtrée + fiche) ----------
+var OS={q:'',dest:'',cat:'',part:'',st:''},OPAGE=30;
+async function listOffers(){
+  var m=$('main');m.textContent='Chargement…';
+  var lk=await Promise.all([sb.from('destinations').select('id,name').order('name'),sb.from('service_categories').select('id,name').order('name'),sb.from('partners').select('id,name').order('name')]);
+  var fe=lk[0].error||lk[1].error||lk[2].error;
+  if(fe){if(authFail(fe))return;m.textContent='Erreur : '+fe.message;return}
+  var dN={},cN={},pN={};lk[0].data.forEach(function(x){dN[x.id]=x.name});lk[1].data.forEach(function(x){cN[x.id]=x.name});lk[2].data.forEach(function(x){pN[x.id]=x.name});
+  var opt=function(rows,all){return [h('option',{value:'',text:all})].concat(rows.map(function(x){return h('option',{value:x.id,text:x.name})}))};
+  var qi=h('input',{type:'search',placeholder:'Rechercher une offre…','aria-label':'Rechercher',value:OS.q}),
+      sd=h('select',{'aria-label':'Destination'},opt(lk[0].data,'Toutes les destinations')),
+      sc=h('select',{'aria-label':'Catégorie'},opt(lk[1].data,'Toutes les catégories')),
+      sp=h('select',{'aria-label':'Partenaire'},opt(lk[2].data,'Tous les partenaires')),
+      ss=h('select',{'aria-label':'Statut'},[h('option',{value:'',text:'Tous les statuts'}),h('option',{value:'1',text:'Actives'}),h('option',{value:'0',text:'Inactives'})]);
+  sd.value=OS.dest;sc.value=OS.cat;sp.value=OS.part;ss.value=OS.st;
+  var body=h('tbody'),count=h('h2',{text:'Offres'}),more=h('button',{class:'btn ghost more',text:'Charger plus',hidden:true}),status=h('div',{class:'empty',hidden:true}),page=0;
+  m.textContent='';
+  m.append(h('div',{class:'bar'},[count,h('button',{class:'btn',text:'+ Ajouter',onclick:function(){edit('offers',null)}})]),
+    h('div',{class:'filters'},[qi,sd,sc,sp,ss]));
+  var tr=h('tr',{},['Offre','Destination','Catégorie','Partenaire','Statut'].map(function(t){return h('th',{text:t.toUpperCase()})}));
+  m.append(h('div',{class:'scroll'},[h('table',{},[h('thead',{},[tr]),body]),status]),more);
+  async function load(reset){
+    if(reset){page=0;body.textContent=''}
+    OS.q=qi.value.trim();OS.dest=sd.value;OS.cat=sc.value;OS.part=sp.value;OS.st=ss.value;
+    status.hidden=false;status.textContent='Chargement…';more.hidden=true;
+    var ids=null;
+    if(OS.part){var pl=await sb.from('offer_partner_links').select('offer_id').eq('partner_id',OS.part);ids=(pl.data||[]).map(function(x){return x.offer_id})}
+    if(ids&&!ids.length){status.textContent='Aucune offre trouvée.';count.textContent='Offres (0)';return}
+    var q=sb.from('offers').select('*',{count:'exact'}).order('sort_order').order('created_at',{ascending:false}).range(page*OPAGE,page*OPAGE+OPAGE-1);
+    if(OS.q)q=q.ilike('title','%'+OS.q.replace(/[%_,()\\]/g,' ')+'%');
+    if(OS.dest)q=q.eq('destination_id',OS.dest);if(OS.cat)q=q.eq('service_category_id',OS.cat);
+    if(OS.st)q=q.eq('active',OS.st==='1');if(ids)q=q.in('id',ids);
+    var r=await q;
+    if(r.error){if(authFail(r.error))return;status.textContent='Erreur : '+r.error.message;return}
+    var links={};
+    if(r.data.length){var lr=await sb.from('offer_partner_links').select('offer_id,partner_id').in('offer_id',r.data.map(function(x){return x.id}));(lr.data||[]).forEach(function(x){links[x.offer_id]=x.partner_id})}
+    r.data.forEach(function(o){
+      body.append(h('tr',{class:'row',onclick:function(){fiche(o)}},[h('td',{text:o.title}),h('td',{text:dN[o.destination_id]||''}),h('td',{text:cN[o.service_category_id]||''}),h('td',{text:pN[links[o.id]]||'—'}),h('td',{},[h('span',{class:'badge'+(o.active?' on':''),text:o.active?'Active':'Inactive'})])]));
+    });
+    var total=r.count==null?body.children.length:r.count;
+    count.textContent='Offres ('+total+')';
+    status.hidden=body.children.length>0;if(!body.children.length)status.textContent=(OS.q||OS.dest||OS.cat||OS.part||OS.st)?'Aucune offre trouvée.':'Aucune offre pour l\'instant. Créez la première avec « + Ajouter ».';
+    more.hidden=(page+1)*OPAGE>=total;page++;
+  }
+  more.addEventListener('click',function(){load(false)});
+  var tm;qi.addEventListener('input',function(){clearTimeout(tm);tm=setTimeout(function(){load(true)},300)});
+  [sd,sc,sp,ss].forEach(function(x){x.addEventListener('change',function(){load(true)})});
+  load(true);
+}
+async function fiche(o){
+  var md=$('modal');md.textContent='';md.className='modal';md.hidden=false;md.append(h('div',{class:'sheet'},[h('p',{text:'Chargement…'})]));
+  var a=await Promise.all([
+    sb.from('destinations').select('name').eq('id',o.destination_id).maybeSingle(),
+    sb.from('service_categories').select('name').eq('id',o.service_category_id).maybeSingle(),
+    sb.from('offer_partner_links').select('partner_id').eq('offer_id',o.id).maybeSingle(),
+    sb.from('offer_images').select('image_url,alt_text').eq('offer_id',o.id).order('sort_order'),
+    sb.from('offer_financials').select('*').eq('offer_id',o.id).maybeSingle()]);
+  var part=null;
+  if(a[2].data&&a[2].data.partner_id){var pr=await sb.from('partners').select('*').eq('id',a[2].data.partner_id).maybeSingle();part=pr.data}
+  var money=function(n,c){return n==null?'—':Number(n).toLocaleString('fr-FR')+' '+(c||'')};
+  var dl=function(rows){var d=h('dl');rows.forEach(function(r){if(r[1]==null||r[1]==='')return;d.append(h('dt',{text:r[0]}),h('dd',{text:String(r[1])}))});return d.children.length?d:h('p',{text:'—',style:'color:var(--mute)'})};
+  var fin=a[4].data,K=[];
+  K.push(h('div',{style:'display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap'},[h('h2',{text:o.title,style:'font-size:26px'}),h('span',{class:'badge'+(o.active?' on':''),text:o.active?'Active':'Inactive'})]));
+  K.push(dl([['Destination',a[0].data&&a[0].data.name],['Catégorie',a[1].data&&a[1].data.name],['Partenaire',part&&part.name],['Lieu',o.location],['Capacité',o.capacity?o.capacity+' personnes':null],['Disponibilité',{available:'Disponible',on_request:'Sur demande',unavailable:'Indisponible'}[o.availability_status]],['Prix affiché',o.public_price_type==='on_request'||o.public_price==null?(o.public_label||'Prix sur demande'):money(o.public_price,o.public_price_currency)]]));
+  if(o.short_description||o.description){K.push(h('h3',{text:'DESCRIPTION'}));if(o.short_description)K.push(h('p',{text:o.short_description}));if(o.description&&o.description!==o.short_description)K.push(h('p',{text:o.description}))}
+  var imgs=[];if(/^https:\/\//.test(o.main_image_url||''))imgs.push(o.main_image_url);(a[3].data||[]).forEach(function(i){imgs.push(i.image_url)});
+  K.push(h('h3',{text:'IMAGES'}));K.push(imgs.length?h('div',{class:'gal'},imgs.map(function(u){return h('img',{src:u,alt:''})})):h('p',{text:'Aucune image.',style:'color:var(--mute)'}));
+  K.push(h('h3',{text:'PARTENAIRE'}));
+  K.push(part?dl([['Nom',part.name],['Type',part.partner_type||part.category],['Contact',[part.phone,part.email].filter(Boolean).join(' · ')],['Site web',part.website_url],['Contact interne',part.internal_contact]]):h('p',{text:'Aucun partenaire rattaché à cette offre.',style:'color:var(--mute)'}));
+  K.push(h('h3',{text:'FINANCES — PRIVÉ ADMIN'}));
+  K.push(h('div',{class:'priv'},[fin?dl([['Coût partenaire',money(fin.partner_cost,fin.cost_currency)],['Commission',fin.commission_type==='percentage'?(fin.commission_value==null?'—':fin.commission_value+' %'):fin.commission_type==='fixed'?money(fin.commission_value,fin.cost_currency):'—'],['Notes internes',fin.internal_notes]]):h('p',{text:'Aucune information financière enregistrée.',style:'color:var(--mute)'})]));
+  var tg=h('button',{class:'btn ghost',type:'button',text:o.active?'Désactiver':'Activer',onclick:async function(){
+    if(o.active&&!confirm('Désactiver cette offre ? Elle ne sera plus visible sur le site.'))return;
+    tg.disabled=true;var u=await sb.from('offers').update({active:!o.active}).eq('id',o.id);
+    if(u.error){tg.disabled=false;toast('Erreur : '+u.error.message);return}
+    close();toast(o.active?'Offre désactivée':'Offre activée');listOffers()}});
+  K.push(h('div',{class:'acts'},[h('div',{style:'display:flex;gap:10px;flex-wrap:wrap'},[h('button',{class:'btn',type:'button',text:'Modifier',onclick:function(){close();edit('offers',o)}}),tg,h('button',{class:'btn ghost',type:'button',text:'Fermer',onclick:close})])]));
+  var sh=h('div',{class:'sheet fiche'},K);md.textContent='';md.append(sh);
 }
 function close(){var md=$('modal');md.hidden=true;md.textContent=''}
 
