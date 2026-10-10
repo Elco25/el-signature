@@ -1,4 +1,4 @@
-var V='els-v15';
+var V='els-v16';
 var SHELL=['/','/index.html','/admin.html','/style.css','/site.js','/configurateur.js','/catalogue.js','/destinations.html','/offre.html','/signature.html','/logo-mark.png','/icon-192.png'];
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(V).then(function(c){return c.addAll(SHELL)}).then(function(){return self.skipWaiting()}));
