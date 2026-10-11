@@ -103,4 +103,14 @@ async function loadVehicles(){
   });
 }
 if($('vlist')){if(sb)loadVehicles();else{$('vlist').textContent='';$('vlist').appendChild(el('p','note','Les véhicules ne peuvent pas être affichés pour le moment.'))}}
+/* accueil, mobile : le bouton WhatsApp flottant n'apparaît que dans le hero et en bas de page, jamais par-dessus les cartes et boutons */
+if(document.body.classList.contains('home-page')&&'IntersectionObserver' in window&&window.matchMedia&&window.matchMedia('(max-width:700px)').matches){
+  var wa=document.querySelector('.wa'),vis={};
+  if(wa){
+    var upd=function(){wa.classList.toggle('wa-off',!(vis.h||vis.f))};
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){vis[e.target.tagName==='FOOTER'?'f':'h']=e.isIntersecting});upd()},{threshold:0});
+    var hh=document.querySelector('.hero'),ff=document.querySelector('footer');
+    if(hh)io.observe(hh);if(ff)io.observe(ff);
+  }
+}
 })();

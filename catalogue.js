@@ -190,7 +190,56 @@ async function detail(){
   }
 }
 
+/* ---- accueil : Signatures et destinations publiées (sections cachées s'il n'y a rien) ---- */
+async function home(){
+  var res=await Promise.all([
+    get('destinations',function(t){return t.select('id,name,slug,country,region,short_description,image_url').order('sort_order').order('created_at')}),
+    get('signatures',function(t){return t.select('id,title,subtitle,description,destination_id,duration_label,style,hero_image_url').order('sort_order').order('created_at')}),
+    get('signature_items',function(t){return t.select('signature_id,offer_id,section_title,included,sort_order').order('sort_order')}),
+    get('offers',function(t){return t.select('id,title')})
+  ]);
+  var dests=res[0],sigs=res[1],items=res[2],offers=res[3];
+  var dById={},oById={};
+  dests.forEach(function(d){dById[d.id]=d});offers.forEach(function(o){oById[o.id]=o});
+
+  var sl=$('hsiglist');
+  if(sl&&sigs.length){
+    sigs.forEach(function(s){
+      var c=el('div','veh');
+      if(okUrl(s.hero_image_url))c.appendChild(photo(s.hero_image_url,s.title));
+      var b=el('div','vbody');b.appendChild(el('h3',null,s.title));
+      if(s.subtitle)b.appendChild(el('p','vd',s.subtitle));
+      var m=[dById[s.destination_id]&&dById[s.destination_id].name,s.duration_label,s.style].filter(Boolean);
+      if(m.length)b.appendChild(el('p','vmeta',m.join(' · ')));
+      if(s.description)b.appendChild(el('p','vd',s.description));
+      var its=items.filter(function(i){return i.signature_id===s.id&&i.included&&oById[i.offer_id]});
+      if(its.length){var ul=el('ul','chips');its.forEach(function(i){ul.appendChild(el('li',null,(i.section_title?i.section_title+' : ':'')+oById[i.offer_id].title))});b.appendChild(ul)}
+      var act=el('div','vact');
+      var more=el('a','btn line-dark','Découvrir la Signature');more.href='/destinations.html#ssec';act.appendChild(more);
+      act.appendChild(ask('Demander cette Signature',s.title,'Signature Experience'));
+      b.appendChild(act);c.appendChild(b);sl.appendChild(c);
+    });
+    $('hsig').hidden=false;
+  }
+
+  var dl=$('hdestlist');
+  if(dl&&dests.length){
+    dests.forEach(function(d){
+      var c=el('div','veh');
+      if(okUrl(d.image_url))c.appendChild(photo(d.image_url,d.name));
+      var b=el('div','vbody');b.appendChild(el('h3',null,d.name));
+      var m=[d.region,d.country].filter(Boolean).join(' · ');if(m)b.appendChild(el('p','vmeta',m));
+      if(d.short_description)b.appendChild(el('p','vd clamp',d.short_description));
+      var go=el('a','btn line-dark','Voir les offres');go.href='/destinations.html?d='+encodeURIComponent(d.slug);
+      var act=el('div','vact');act.appendChild(go);b.appendChild(act);c.appendChild(b);dl.appendChild(c);
+    });
+    dl.hidden=false;
+    var zi=$('zones-intro');if(zi)zi.hidden=false;
+  }
+}
+
 if(!sb)return;
+if($('hsiglist')||$('hdestlist'))home();
 if($('dfeat'))strip();
 if($('olist'))page();
 if($('odet'))detail();

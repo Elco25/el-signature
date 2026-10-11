@@ -25,20 +25,19 @@
 <meta property="og:image" content="https://el-signature.vercel.app/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
+<body class="home-page">
 <a class="skip" href="#contenu">Aller au contenu</a>
 <header class="hero home">
 <div class="wrap" style="width:100%">
 <nav>
 <a class="brand" href="/"><img class="mk" src="/logo-mark.png" alt="" width="112" height="44"><span><b>EL SIGNATURE</b><small>CONCIERGERIE PRIVÉE &amp; DÉCOUVERTE</small></span></a>
 <div class="links" id="links"><a href="/voyages.html">Voyages</a><a href="/destinations.html">Destinations</a><a href="/experiences.html">Expériences</a><a href="/conciergerie.html">Conciergerie</a><a href="/transport.html">Transport</a><a href="/private.html">Private</a></div>
-<a class="btn navcta" href="/signature.html">Construisez votre signature</a>
 <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="links"><span></span><span></span><span></span></button>
 </nav>
 <div class="hero-body"><div>
 <p class="eyebrow">EL SIGNATURE · CONCIERGERIE PRIVÉE &amp; DÉCOUVERTE</p>
 <h1>Des voyages, des expériences et des attentions imaginés autour de vous.</h1>
-<div class="cta"><a class="btn" href="/signature.html">Construisez votre signature</a><a class="btn line" href="#univers">Découvrir EL SIGNATURE</a></div>
+<div class="cta"><a class="btn" href="/signature.html">Construire ma signature</a><a class="btn line" href="#univers">Découvrir EL SIGNATURE</a></div>
 <p class="hero-note">Madagascar est notre territoire signature. Le monde est notre terrain de jeu.</p>
 </div></div>
 </div>
@@ -49,25 +48,27 @@
 <p>Nous connaissons les bons endroits, les bonnes personnes et les expériences qui méritent votre temps.</p>
 </div></section>
 
-<section class="teaser"><div class="wrap">
-<h2>Construisez votre signature</h2>
-<p>Choisissez votre destination, vos envies et les services dont vous souhaitez profiter. Nous transformons votre sélection en une expérience entièrement personnalisée.</p>
-<a class="btn" href="/signature.html">Construisez votre signature</a>
+<section id="hsig" class="alt" hidden><div class="wrap">
+<div class="head"><h2>Nos Signatures</h2><p>Des itinéraires et séjours imaginés par EL SIGNATURE, composés autour d'une destination, d'un lieu et d'expériences choisies.</p></div>
+<div id="hsiglist" class="vgrid"></div>
+<p class="tlink"><a href="/signature.html">Vous préférez composer la vôtre ? Construisez votre signature →</a></p>
 </div></section>
 
 <section id="univers"><div class="wrap">
 <div class="head"><h2>Quatre univers</h2><p>Une maison privée de conciergerie et de découverte, pour des voyageurs qui apprécient le temps, le goût et les expériences authentiques.</p></div>
 <div class="cards">
-<div class="card c1"><h3>VOYAGE</h3><p>Votre voyage, pensé pour vous.</p><div class="px">Signature Journey</div><a href="/voyages.html">Imaginer mon voyage</a></div>
-<div class="card c2"><h3>EXPÉRIENCES</h3><p>Des lieux et des moments qui méritent d'être vécus.</p><div class="px">Signature Experience</div><a href="/experiences.html">Découvrir les expériences</a></div>
-<div class="card c3"><h3>CONCIERGERIE</h3><p>Une demande. Nous nous en occupons.</p><div class="px">Signature Personal</div><a href="/conciergerie.html">Faire une demande</a></div>
-<div class="card c4"><h3>PRIVATE</h3><p>Une relation privilégiée avec la maison.</p><div class="px">EL Signature Private</div><a href="/private.html">Demander un accès privé</a></div>
+<div class="card c1"><h3>VOYAGES PRIVÉS</h3><p>Un voyage construit autour de vous, de la première idée au dernier détail, sans catalogue standard.</p><a href="/voyages.html">Imaginer mon voyage</a></div>
+<div class="card c2"><h3>EXPÉRIENCES</h3><p>Des expériences privées choisies pour leur caractère et leur authenticité, grâce à une connaissance réelle du terrain.</p><a href="/experiences.html">Découvrir les expériences</a></div>
+<div class="card c3"><h3>CONCIERGERIE</h3><p>Une réservation, un transport, un cadeau, une demande particulière : vous nous la confiez, nous nous en occupons.</p><a href="/conciergerie.html">Faire une demande</a></div>
+<div class="card c4"><h3>EL SIGNATURE PRIVATE</h3><p>Une relation personnelle et continue avec la maison : attention prioritaire et accès simplifié à notre réseau.</p><a href="/private.html">Demander un accès privé</a></div>
 </div>
 <p class="tlink"><a href="/transport.html">Transport privé : découvrir nos véhicules →</a></p>
 </div></section>
 
 <section id="destinations" style="padding-top:0"><div class="wrap">
 <div class="head"><h2>Destinations</h2><p>Une destination en tête ? Nous pouvons construire votre expérience.</p></div>
+<div id="hdestlist" class="vgrid" hidden></div>
+<div id="zones-intro" class="zones-intro" hidden><h3>Ailleurs, sur projet</h3><p>Ces régions ne font pas encore partie de notre sélection publiée : chaque voyage y est imaginé sur mesure, à partir de votre demande.</p></div>
 <div class="zones">
 <a class="zone z1" href="/signature.html?zone=ocean"><span>Océan Indien<small>Maurice · Seychelles · Maldives</small></span></a>
 <a class="zone z2" href="/signature.html?zone=afrique"><span>Afrique<small>Safari · Kenya · Maroc</small></span></a>
@@ -98,7 +99,7 @@
 <div class="ask">
 <h2>Dites-nous ce que vous recherchez.</h2>
 <p>Vous n'avez pas besoin de savoir exactement ce que vous voulez. Parlez-nous de votre projet. Nous nous occupons de la suite.</p>
-<a class="btn" href="/signature.html">Construisez votre signature</a><a class="alt-link" href="/contact.html">ou écrivez-nous</a>
+<a class="btn" href="/signature.html">Construire ma signature</a><a class="alt-link" href="/contact.html">ou écrivez-nous</a>
 </div>
 </div></section>
 </main>
@@ -114,6 +115,8 @@
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.9 7L4 20l1.5-4A8 8 0 1 1 20 11.5z"/><path d="M9 9.2c.3 2.4 2.4 4.5 4.8 4.8l1-1.2-1.8-.9-.7.7a4 4 0 0 1-1.9-1.9l.7-.7-.9-1.8z" fill="currentColor" stroke="none"/></svg>
 <span>WhatsApp</span></a>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="/site.js"></script>
+<script src="/catalogue.js"></script>
 </body>
 </html>
